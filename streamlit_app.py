@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# https://tien89.streamlit.app/     # up ngay 15-11-2023
+
 import streamlit as st
 from pytube import YouTube
 import moviepy.editor as mp
@@ -9,6 +11,7 @@ from googletrans import Translator
 from io import StringIO
 import os
 import time
+import streamlit.components.v1 as components 
 
 # 1 -------------------------
 def Download_youtube(choice):
@@ -48,15 +51,51 @@ def Xu_li_speech2text(path_filename):
     with sr.AudioFile(tepwav) as source:
         r = sr.Recognizer()
         fulltxt = get_large_audio_transcription(tepwav, r)
-    with open(tepout, encoding = 'utf-8', mode='w+') as fh:    
-        fh.write(fulltxt)
-        #os.startfile(tepout)
-    st.write(fulltxt)
+        ltext = fulltxt.split('.')
+        chp=''
+        for text in ltext:
+          chp=chp+'<p>'+text+'</p>'   
+        #with open(tepout, encoding = 'utf-8', mode='w+') as fh:    
+            #fh.write(fulltxt)
+            #os.startfile(tepout)
+            #st.write(fulltxt)
+        js1='''
+            function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'}, 'google_translate_element');}
+            '''
+        js2='''
+            src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+            '''
+        sty='''
+            p {font-size: 16pt;}
+            '''
+        components.html(f"""
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Let's Learn English</title>
+                    <style> {sty} </style>
+                    </head>
+                    <body>
+                    <div id="google_translate_element" ></div>
+                    <script>{js1}</script>
+                    <script {js2}></script>
+                    {chp}
+                    </body>
+                    </html>
+                    """,width=800, height=900)
+                    
+        #components.html(html_str, unsafe_allow_html=True)
+
+        #st.markdown(html_str, unsafe_allow_html=True)
+
 
 # 3 -----------------------------
 def Speech_invid_to_text(choice):
     st.subheader(choice)
-    opption_chon = st.radio(":green[Chọn một nguồn:]", [":red[lấy tệp mp4 trong máy]",":blue[lấy tệp mp4 từ URL]"],index=0,horizontal=True ) 
+    opption_chon = st.radio(":green[Chọn một nguồn:]", [":red[lấy tệp mp4 trong máy]",":blue[lấy tệp mp4 từ URL]"],index=1,horizontal=True ) 
     if opption_chon==":red[lấy tệp mp4 trong máy]":
         uploaded_file = st.file_uploader('Chọn tệp mp4 trong máy muốn lấy',type=['mp4'])
         if uploaded_file is not None:
@@ -65,11 +104,11 @@ def Speech_invid_to_text(choice):
             #st.subheader(filename)
             with open(os.path.join("",filename),"wb") as f: 
                 f.write(uploaded_file.getbuffer())         
-            #st.success("Saved File")
-            with st.spinner(':red[Wait for converting speech to text...]'):
-                Xu_li_speech2text(filename)
-                time.sleep(0.5)
-                st.success('Done!')
+                #st.success("Saved File")
+            #with st.spinner(':red[Wait for converting speech to text...]'):
+            Xu_li_speech2text(filename)
+            #time.sleep(0.5)
+            #st.success('Done!')
 
     else:
         url_of_youtube = st.text_input('Nhập URL của youtube. ( Ví dụ : https://www.youtube.com/watch?v=Z2iXr8On3LI ) rồi Enter:',)
@@ -88,11 +127,11 @@ def Speech_invid_to_text(choice):
                 st.write(':blue[Download is completed successfully with file named : ] '+file_name)
             except:
                 print("An error has occurred")
-            st.write('---')
-            with st.spinner(':red[Wait for converting speech to text...]'):
-                Xu_li_speech2text(file_name)
-                time.sleep(0.5)
-                st.success('Done!')
+            #st.write('---')
+            #with st.spinner(':red[Wait for converting speech to text...]'):
+            Xu_li_speech2text(file_name)
+            #time.sleep(0.5)
+            #st.success('Done!')
 
         
 def Dich_entxt_to_vitxt(choice):
@@ -192,7 +231,7 @@ menu = ["1. Download youtube khi biết url của nó",
         "3. Chuyển âm nói trong youtube thành text",
         "4. Dịch text từ ngôn ngữ gốc sang ngôn ngữ Anh",
         "5. Dịch file.txt tiếng Anh sang tiếng Việt"]
-choice = st.sidebar.selectbox("MENU",menu)
+choice = st.sidebar.selectbox("MENU",menu,index=2)
         
 if '1.' in choice:
     Download_youtube(choice=":red[1. Download youtube khi biết url của nó]")
