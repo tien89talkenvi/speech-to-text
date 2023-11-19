@@ -52,9 +52,9 @@ def Xu_li_speech2text(path_filename):
         r = sr.Recognizer()
         fulltxt = get_large_audio_transcription(tepwav, r)
         ltext = fulltxt.split('.')
-        chp=''
+        chp='<br><br>'
         for text in ltext:
-          chp=chp+'<div class="f-grid">'+text+'</div>'   
+            chp=chp+'<div class="f-grid">'+text+'</div>'   
         #with open(tepout, encoding = 'utf-8', mode='w+') as fh:    
             #fh.write(fulltxt)
             #os.startfile(tepout)
@@ -70,7 +70,8 @@ def Xu_li_speech2text(path_filename):
                 display: flex;
                 justify-content: space-between;
                 margin-left:-0.5rem;
-                flex-flow: row wrap;}
+                flex-flow: row wrap;
+                font-size: 20px; }
             '''
         components.html(f"""
                     <!DOCTYPE html>
@@ -89,7 +90,7 @@ def Xu_li_speech2text(path_filename):
                     {chp}
                     </body>
                     </html>
-                    """,width=600, height=900, scrolling=True)
+                    """,height=800,scrolling=True)
                     
         #components.html(html_str, unsafe_allow_html=True)
 
