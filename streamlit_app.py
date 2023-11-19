@@ -54,7 +54,7 @@ def Xu_li_speech2text(path_filename):
         ltext = fulltxt.split('.')
         chp=''
         for text in ltext:
-          chp=chp+'<p>'+text+'</p>'   
+          chp=chp+'<div class="f-grid">'+text+'</div>'   
         #with open(tepout, encoding = 'utf-8', mode='w+') as fh:    
             #fh.write(fulltxt)
             #os.startfile(tepout)
@@ -66,7 +66,11 @@ def Xu_li_speech2text(path_filename):
             src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
             '''
         sty='''
-            p {font-size: 16pt;}
+            .f-grid {
+                display: flex;
+                justify-content: space-between;
+                margin-left:-0.5rem;
+                flex-flow: row wrap;}
             '''
         components.html(f"""
                     <!DOCTYPE html>
@@ -75,7 +79,7 @@ def Xu_li_speech2text(path_filename):
                     <meta charset="UTF-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Let's Learn English</title>
+                    <title>Tiensg89's App</title>
                     <style> {sty} </style>
                     </head>
                     <body>
@@ -85,7 +89,7 @@ def Xu_li_speech2text(path_filename):
                     {chp}
                     </body>
                     </html>
-                    """,width=800, height=900)
+                    """,width=600, height=900, scrolling=True)
                     
         #components.html(html_str, unsafe_allow_html=True)
 
