@@ -15,7 +15,6 @@ from googletrans import Translator
 from gtts import gTTS, gTTSError   
 from googletrans import Translator 
 import streamlit.components.v1 as components 
-import pyperclip
 from io import StringIO,BytesIO
 import os
 
