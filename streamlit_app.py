@@ -201,31 +201,37 @@ if viec3_speech_to_text:
     if opption_chon==":orange[lấy tệp mp4 trong máy]":
         uploaded_file = st.file_uploader('Chọn tệp mp4 trong máy muốn lấy',type=['mp4'],key='UF1')
         if uploaded_file is not None:
-            filename = uploaded_file.name
-            #transcription(stt_tokenizer, stt_model, filename, uploaded_file)
-            #st.subheader(filename)
-            with open(os.path.join("",filename),"wb") as f: 
-                f.write(uploaded_file.getbuffer())         
-                #st.success("Saved File")
-            #with st.spinner(':red[Wait for converting speech to text...]'):
-            Xu_li_speech2text(filename,codelang1,codelang2)
-            #time.sleep(0.5)
-            #st.success('Done!')
+            with st.spinner('Wait for converting ...'):
+                filename = uploaded_file.name
+                #transcription(stt_tokenizer, stt_model, filename, uploaded_file)
+                #st.subheader(filename)
+                with open(os.path.join("",filename),"wb") as f: 
+                    f.write(uploaded_file.getbuffer())         
+                    #st.success("Saved File")
+                #with st.spinner(':red[Wait for converting speech to text...]'):
+                Xu_li_speech2text(filename,codelang1,codelang2)
+                #time.sleep(0.5)
+                #st.success('Done!')
+                st.success('Converting Complete', icon="✅")
+                st.balloons()
 
     else:
         url_of_youtube = st.text_input(':red[Nhập URL của youtube rồi Enter. Ví dụ : https://www.youtube.com/watch?v=Z2iXr8On3LI]',key='IP1')
         if url_of_youtube != '':
-            youtubeObject = YouTube(url_of_youtube)
-            youtubeObject = youtubeObject.streams.get_highest_resolution()
-            try:
-                youtubeObject.download()
-                file_name = youtubeObject.default_filename
-                st.write(':blue[Download is completed successfully with file named : ] '+file_name)
-            except:
-                print("An error has occurred")
-            #st.write('---')
-            #with st.spinner(':red[Wait for converting speech to text...]'):
-            Xu_li_speech2text(file_name,codelang1,codelang2)
-            #time.sleep(0.5)
-            #st.success('Done!')
+            with st.spinner('Wait for converting ...'):
+                youtubeObject = YouTube(url_of_youtube)
+                youtubeObject = youtubeObject.streams.get_highest_resolution()
+                try:
+                    youtubeObject.download()
+                    file_name = youtubeObject.default_filename
+                    st.write(':blue[Download is completed successfully with file named : ] '+file_name)
+                except:
+                    print("An error has occurred")
+                #st.write('---')
+                #with st.spinner(':red[Wait for converting speech to text...]'):
+                Xu_li_speech2text(file_name,codelang1,codelang2)
+                #time.sleep(0.5)
+                #st.success('Done!')
+                st.success('Converting Complete', icon="✅")
+                st.balloons()
 
