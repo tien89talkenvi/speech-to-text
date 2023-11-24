@@ -163,10 +163,11 @@ if viec1_download:
                         st.error('Error: Save with a different name!', icon="🚨")      
 
 st.write('---')
+
 viec2_play_video = st.checkbox(":blue[$\Large 2.Play \; Video \; from \; Local$]",key=2)
 if viec2_play_video:
     opption_play = st.radio(":green[Select one of:]", [":orange[Play video have just downloaded]",":blue[Upload from local then play]"],index=0,horizontal=True,key='R1' ) 
-    if opption_play==":orange[Play video have just downloaded]":
+    if opption_play==":orange[Play video by click download again]":
         if TEPDLOAD !='':
             video_file = open(TEPDLOAD, 'rb')
             video_bytes = video_file.read()
@@ -181,7 +182,8 @@ st.write('---')
 
 codelang1='en'
 codelang2='vi'
-viec3_speech_to_text = st.checkbox(":orange[$\Large 3.Convert \; Speech \; in \; Video \; to \; Text$]",key=3)
+
+viec3_speech_to_text = st.checkbox(":orange[$\Large 3.Convert \; Speech \; to \; Text$]",key=3)
 
 if viec3_speech_to_text:
     col1, col2=st.columns(2)
