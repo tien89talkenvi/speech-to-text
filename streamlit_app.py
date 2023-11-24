@@ -166,14 +166,14 @@ st.write('---')
 
 viec2_play_video = st.checkbox(":blue[$\Large 2.Play \; Video \; from \; Local$]",key=2)
 if viec2_play_video:
-    opption_play = st.radio(":green[Select one of:]", [":orange[Play video have just downloaded]",":blue[Upload from local then play]"],index=0,horizontal=True,key='R1' ) 
+    opption_play = st.radio(":green[Select one of:]", [":orange[Play video by click download again]",":blue[Upload from local then play]"],index=0,horizontal=True,key='R1' ) 
     if opption_play==":orange[Play video by click download again]":
         if TEPDLOAD !='':
             video_file = open(TEPDLOAD, 'rb')
             video_bytes = video_file.read()
             st.video(video_bytes)
 
-    if opption_play==":blue[Upload from local]":
+    if opption_play==":blue[Upload from local then play]":
         uploaded_file = st.file_uploader('Select Video file (.mp4) from Local',type=['mp4'],key='VD2')
         if uploaded_file is not None:
             st.video(uploaded_file)
