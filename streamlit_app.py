@@ -124,7 +124,7 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2):
 
 ##################################################################################
 st.title(":orange[Speech :open_mouth: in Video to Text] 📝")   #🚀
-
+TEPDLOAD=''
 viec1_download=st.checkbox(":green[$\Large 1. Download \; Video$]",key=1)
 if viec1_download:
     url = st.text_input(":red[Paste URL here 👇 then Enter. Ex. https://www.youtube.com/watch?v=Z2iXr8On3LI]", placeholder='https://www.youtube.com/')
@@ -156,18 +156,26 @@ if viec1_download:
                     try:
                         ds = v_info["streams"].get_by_itag(v_info['itag'][id])
                         ds.download(filename= file_name, output_path= "downloads/")
-                        st.success('Download Complete', icon="✅")       
+                        st.success('Download Complete', icon="✅")
+                        TEPDLOAD="downloads/" + file_name       
                         st.balloons()
                     except:
                         st.error('Error: Save with a different name!', icon="🚨")      
 
 st.write('---')
-
 viec2_play_video = st.checkbox(":blue[$\Large 2.Play \; Video \; from \; Local$]",key=2)
 if viec2_play_video:
-    uploaded_file = st.file_uploader('Select Video file (.mp4) from Local',type=['mp4'])
-    if uploaded_file is not None:
-        st.video(uploaded_file)
+    opption_play = st.radio(":green[Select one of:]", [":orange[Play video have just downloaded]",":blue[Upload from local then play]"],index=0,horizontal=True,key='R1' ) 
+    if opption_play==":orange[Play video have just downloaded]":
+        if TEPDLOAD !='':
+            video_file = open(TEPDLOAD, 'rb')
+            video_bytes = video_file.read()
+            st.video(video_bytes)
+
+    if opption_play==":blue[Upload from local]":
+        uploaded_file = st.file_uploader('Select Video file (.mp4) from Local',type=['mp4'],key='VD2')
+        if uploaded_file is not None:
+            st.video(uploaded_file)
 
 st.write('---')
 
