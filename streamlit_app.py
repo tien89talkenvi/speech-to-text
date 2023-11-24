@@ -125,7 +125,7 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2):
 ##################################################################################
 st.title(":orange[Speech :open_mouth: in Video to Text] 📝")   #
 TEPDLOAD=''
-viec1_download=st.checkbox(":green[$\Large 1. Download \; Video$]",key=1)
+viec1_download=st.checkbox(":green[$\Large 1. Download \; Video$]",key="M1")
 if viec1_download:
     url = st.text_input(":red[Paste URL here 👇 then Enter. Ex. https://www.youtube.com/watch?v=Z2iXr8On3LI]", placeholder='https://www.youtube.com/')
     if url:
@@ -164,9 +164,9 @@ if viec1_download:
 
 st.write('---')
 
-viec2_play_video = st.checkbox(":blue[$\Large 2.Play \; Video \; from \; Local$]",key=2)
+viec2_play_video = st.checkbox(":blue[$\Large 2.Play \; Video \; from \; Local$]",key="M2")
 if viec2_play_video:
-    opption_play = st.radio(":green[Select one of:]", [":orange[Play video by click download again]",":blue[Upload from local then play]"],index=0,horizontal=True,key='R1' ) 
+    opption_play = st.radio(":green[Select one of:]", [":orange[Play video by click download again]",":blue[Upload from local then play]"],index=0,horizontal=True,key='R11' ) 
     if opption_play==":orange[Play video by click download again]":
         if TEPDLOAD !='':
             video_file = open(TEPDLOAD, 'rb')
@@ -183,7 +183,7 @@ st.write('---')
 codelang1='en'
 codelang2='vi'
 
-viec3_speech_to_text = st.checkbox(":orange[$\Large 3.Convert \; Speech \; to \; Text$]",key=3)
+viec3_speech_to_text = st.checkbox(":orange[$\Large 3.Convert \; Speech \; to \; Text$]",key='M3')
 
 if viec3_speech_to_text:
     col1, col2=st.columns(2)
