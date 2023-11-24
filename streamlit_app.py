@@ -123,7 +123,7 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2):
     st.audio(mp3_fp, format="audio/wav",start_time=0)
 
 ##################################################################################
-st.title(":orange[Speech :open_mouth: in Video to Text] 📝")   #🚀
+st.title(":orange[Speech :open_mouth: in Video to Text] 📝")   #
 TEPDLOAD=''
 viec1_download=st.checkbox(":green[$\Large 1. Download \; Video$]",key=1)
 if viec1_download:
@@ -189,11 +189,11 @@ if viec3_speech_to_text:
     col1, col2=st.columns(2)
     with col1:
         language1 = st.selectbox(":blue[với ngôn ngữ nguồn là :]", 
-                ("Vietnamese - Viet (vi)","English - Anh (en)","Spanish - Tây ban nha (es)","Taiwan - Đài loan (zh-TW)","Danish - Đan mạch (da)","German - Đức (de)","Dutch - Hà lan (nl)","French - Pháp (fr)","Japanese - Nhật bản (ja)","Korean - Hản quốc (ko)","Thai - Thái lan (th)","Khmer - Campuchia (km)"),index=1,key='L1' )
+                ("Vietnamese - Viet (vi)","English - Anh (en)","Latin - La tinh (la)","Spanish - Tây ban nha (es)","Taiwan - Đài loan (zh-TW)","Danish - Đan mạch (da)","German - Đức (de)","Dutch - Hà lan (nl)","French - Pháp (fr)","Japanese - Nhật bản (ja)","Korean - Hản quốc (ko)","Thai - Thái lan (th)","Khmer - Campuchia (km)"),index=1,key='L1' )
         codelang1 = ma_tieng(language1)
     with col2:
         language2 = st.selectbox(":blue[và ngôn ngữ đích là :]", 
-                ("Vietnamese - Viet (vi)","English - Anh (en)","Spanish - Tây ban nha (es)","Taiwan - Đài loan (zh-TW)","Danish - Đan mạch (da)","German - Đức (de)","Dutch - Hà lan (nl)","French - Pháp (fr)","Japanese - Nhật bản (ja)","Korean - Hản quốc (ko)","Thai - Thái lan (th)","Khmer - Campuchia (km)"),index=0,key='L2' )
+                ("Vietnamese - Viet (vi)","English - Anh (en)","Latin - La tinh (la)","Spanish - Tây ban nha (es)","Taiwan - Đài loan (zh-TW)","Danish - Đan mạch (da)","German - Đức (de)","Dutch - Hà lan (nl)","French - Pháp (fr)","Japanese - Nhật bản (ja)","Korean - Hản quốc (ko)","Thai - Thái lan (th)","Khmer - Campuchia (km)"),index=0,key='L2' )
         codelang2 = ma_tieng(language2)
 
 
