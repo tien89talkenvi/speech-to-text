@@ -206,12 +206,11 @@ if viec3_speech_to_text:
         codelang2 = ma_tieng(language2)
 
 
-    opption_chon = st.radio(":green[Chọn nguồn video muốn lấy:]", [":blue[tệp downloaded (click again)]",":orange[tệp mp4 trong máy]",":blue[tệp mp4 từ URL]"],index=0,horizontal=True,key='R1' ) 
+    opption_chon = st.radio(":green[Chọn nguồn video muốn lấy:]", [":blue[tệp downloaded (click again)]",":orange[tệp mp4 trong máy]",":blue[tệp mp4 từ URL]"],index=0,horizontal=True,key='R01' ) 
     if opption_chon==":blue[tệp downloaded (click again)]":
         if TEPDLOAD !='':
             with st.spinner('Wait for converting ...'):
-                filename = TEPDLOAD
-                Xu_li_speech2text(filename,codelang1,codelang2)
+                Xu_li_speech2text(TEPDLOAD,codelang1,codelang2)
                 st.success('Converting Complete', icon="✅")
                 st.balloons()
 
