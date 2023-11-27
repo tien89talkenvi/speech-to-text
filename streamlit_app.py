@@ -209,6 +209,8 @@ if viec3_speech_to_text:
     if opption_chon==":blue[tệp downloaded (click again)]":
         if TEPDLOAD !='':
             with st.spinner('Wait for converting ...'):
+                #with open(os.path.join("",TEPDLOAD),"wb") as f: 
+                #    f.write(TEPDLOAD.getbuffer())         
                 Xu_li_speech2text(TEPDLOAD,codelang1,codelang2)
                 st.success('Converting Complete', icon="✅")
                 st.balloons()
