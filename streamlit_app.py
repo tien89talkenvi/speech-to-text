@@ -30,7 +30,7 @@ st.markdown(f"""
         </style>
          """, unsafe_allow_html=True)
 
-@st.cache(allow_output_mutation=True)
+#@st.cache(allow_output_mutation=True)
 def get_info(url):
     yt = YouTube(url)
     streams= yt.streams.filter(progressive= True, type= 'video')
@@ -113,6 +113,7 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2):
         fulltxt = get_large_audio_transcription(tepwav, r)
 
     # Save vao tep resultf.txt roi dich tep nay
+    fulltxt = v_info['title'] + '.' + fulltxt
     lresult=fulltxt.split(".")
     with open('resultf.txt', 'w+') as fluu:
         for lr in lresult:
@@ -134,6 +135,7 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2):
 st.title(":orange[Speech :open_mouth: in Video to Text] 📝")   #
 url=''
 TEPDLOAD=''
+tieude=''
 viec1_download=st.checkbox(":green[$\Large 1. Download \; Video$]",key="M1")
 if viec1_download:
     url = st.text_input(":red[Paste URL here 👇 then Enter. Ex. https://www.youtube.com/watch?v=Z2iXr8On3LI]", placeholder='https://www.youtube.com/')
@@ -153,6 +155,7 @@ if viec1_download:
                 st.write(f"__Frame Rate:__ {v_info['fps'][id]}")
                 st.write(f"__Format:__ {v_info['format'][id]}")
                 file_name = st.text_input('__Save as 🎯__', placeholder = v_info['title'])
+                tieude = v_info['title']
                 if file_name:        
                     if file_name != v_info['title']:
                         file_name+=".mp4"
@@ -215,7 +218,7 @@ if viec3_speech_to_text:
                 try:
                     youtubeObject.download()
                     file_name = youtubeObject.default_filename
-                    st.write(':blue[Download is completed successfully with file named : ] '+file_name)
+                    #st.write(':blue[Download is completed successfully with file named : ] '+file_name)
                 except:
                     print("An error has occurred")
                 Xu_li_speech2text(file_name,codelang1,codelang2)
@@ -243,7 +246,7 @@ if viec3_speech_to_text:
                 try:
                     youtubeObject.download()
                     file_name = youtubeObject.default_filename
-                    st.write(':blue[Download is completed successfully with file named : ] '+file_name)
+                    #st.write(':blue[Download is completed successfully with file named : ] '+file_name)
                 except:
                     print("An error has occurred")
                 Xu_li_speech2text(file_name,codelang1,codelang2)
