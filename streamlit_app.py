@@ -132,6 +132,7 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2):
 
 ##################################################################################
 st.title(":orange[Speech :open_mouth: in Video to Text] 📝")   #
+url=''
 TEPDLOAD=''
 viec1_download=st.checkbox(":green[$\Large 1. Download \; Video$]",key="M1")
 if viec1_download:
@@ -205,15 +206,22 @@ if viec3_speech_to_text:
         codelang2 = ma_tieng(language2)
 
 
-    opption_chon = st.radio(":green[Chọn nguồn video muốn lấy:]", [":blue[tệp downloaded (click again)]",":orange[tệp mp4 trong máy]",":blue[tệp mp4 từ URL]"],index=0,horizontal=True,key='R01' ) 
-    if opption_chon==":blue[tệp downloaded (click again)]":
-        if TEPDLOAD !='':
+    opption_chon = st.radio(":green[Chọn nguồn video muốn lấy:]", [":blue[tệp downloaded (click downloaded again)]",":orange[tệp mp4 trong máy]",":blue[tệp mp4 từ URL]"],index=0,horizontal=True,key='R01' ) 
+    if opption_chon==":blue[tệp downloaded (click downloaded again)]":
+        if url !='':
             with st.spinner('Wait for converting ...'):
-                #with open(os.path.join("",TEPDLOAD),"wb") as f: 
-                #    f.write(TEPDLOAD.getbuffer())         
-                Xu_li_speech2text(TEPDLOAD,codelang1,codelang2)
+                youtubeObject = YouTube(url)
+                youtubeObject = youtubeObject.streams.get_highest_resolution()
+                try:
+                    youtubeObject.download()
+                    file_name = youtubeObject.default_filename
+                    st.write(':blue[Download is completed successfully with file named : ] '+file_name)
+                except:
+                    print("An error has occurred")
+                Xu_li_speech2text(file_name,codelang1,codelang2)
                 st.success('Converting Complete', icon="✅")
                 st.balloons()
+
 
     elif opption_chon==":orange[tệp mp4 trong máy]":
         uploaded_file = st.file_uploader('Chọn tệp mp4 trong máy muốn lấy',type=['mp4'],key='UF1')
