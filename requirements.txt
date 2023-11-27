@@ -5,3 +5,4 @@ moviepy==1.0.3
 SpeechRecognition==3.10.0
 googletrans==4.0.0rc1
 gTTS==2.4.0
+deep-translator==1.11.4

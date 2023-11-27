@@ -6,6 +6,7 @@ from pydub import AudioSegment
 from pydub.silence import split_on_silence
 from googletrans import Translator 
 from gtts import gTTS, gTTSError   
+from deep_translator import GoogleTranslator
 import streamlit.components.v1 as components 
 from io import StringIO,BytesIO
 import os
@@ -111,13 +112,21 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2):
     with sr.AudioFile(tepwav) as source:
         r = sr.Recognizer()
         fulltxt = get_large_audio_transcription(tepwav, r)
-    
-    translator = Translator()
-    text_translated = translator.translate(fulltxt, src=codelang1,dest=codelang2).text    # Dich ra En theo tai lieu web
-    st.write(text_translated)
+
+    # Save vao tep resultf.txt roi dich tep nay
+    lresult=fulltxt.split(".")
+    with open('resultf.txt', 'w+') as fluu:
+        for lr in lresult:
+            fluu.write(lr.strip() +'.\n\n')
+    txt_translated=GoogleTranslator(source=codelang1,target=codelang2).translate_file('resultf.txt')        
+    st.write(txt_translated)
+
+    #translator = Translator()
+    #text_translated = translator.translate(fulltxt, src=codelang1,dest=codelang2).text    # Dich ra En theo tai lieu web
+    #st.write(text_translated)
     mp3_fp = BytesIO()
     lang_dest=codelang2
-    tts = gTTS(text_translated, lang=lang_dest)
+    tts = gTTS(txt_translated, lang=lang_dest)
     tts.write_to_fp(mp3_fp)
     mp3_fp.seek(0)  #phai co dong nay thi auto_phat_audio moi phat dc
     st.audio(mp3_fp, format="audio/wav",start_time=0)
@@ -197,21 +206,23 @@ if viec3_speech_to_text:
         codelang2 = ma_tieng(language2)
 
 
-    opption_chon = st.radio(":green[Chọn nguồn video muốn lấy:]", [":orange[lấy tệp mp4 trong máy]",":blue[lấy tệp mp4 từ URL]"],index=1,horizontal=True,key='R1' ) 
-    if opption_chon==":orange[lấy tệp mp4 trong máy]":
+    opption_chon = st.radio(":green[Chọn nguồn video muốn lấy:]", [":blue[tệp downloaded (click again)]",":orange[tệp mp4 trong máy]",":blue[tệp mp4 từ URL]"],index=0,horizontal=True,key='R1' ) 
+    if opption_chon==":blue[tệp downloaded (click again)]":
+        if TEPDLOAD !='':
+            with st.spinner('Wait for converting ...'):
+                filename = TEPDLOAD
+                Xu_li_speech2text(filename,codelang1,codelang2)
+                st.success('Converting Complete', icon="✅")
+                st.balloons()
+
+    elif opption_chon==":orange[tệp mp4 trong máy]":
         uploaded_file = st.file_uploader('Chọn tệp mp4 trong máy muốn lấy',type=['mp4'],key='UF1')
         if uploaded_file is not None:
             with st.spinner('Wait for converting ...'):
                 filename = uploaded_file.name
-                #transcription(stt_tokenizer, stt_model, filename, uploaded_file)
-                #st.subheader(filename)
                 with open(os.path.join("",filename),"wb") as f: 
                     f.write(uploaded_file.getbuffer())         
-                    #st.success("Saved File")
-                #with st.spinner(':red[Wait for converting speech to text...]'):
                 Xu_li_speech2text(filename,codelang1,codelang2)
-                #time.sleep(0.5)
-                #st.success('Done!')
                 st.success('Converting Complete', icon="✅")
                 st.balloons()
 
@@ -227,11 +238,7 @@ if viec3_speech_to_text:
                     st.write(':blue[Download is completed successfully with file named : ] '+file_name)
                 except:
                     print("An error has occurred")
-                #st.write('---')
-                #with st.spinner(':red[Wait for converting speech to text...]'):
                 Xu_li_speech2text(file_name,codelang1,codelang2)
-                #time.sleep(0.5)
-                #st.success('Done!')
                 st.success('Converting Complete', icon="✅")
                 st.balloons()
 
