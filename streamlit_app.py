@@ -4,7 +4,6 @@ import speech_recognition as sr
 import moviepy.editor as mp
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
-from googletrans import Translator 
 from gtts import gTTS, gTTSError   
 from deep_translator import GoogleTranslator
 import streamlit.components.v1 as components 
