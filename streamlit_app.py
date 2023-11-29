@@ -113,7 +113,7 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2):
         fulltxt = get_large_audio_transcription(tepwav, r)
 
     # Save vao tep resultf.txt roi dich tep nay
-    fulltxt = v_info['title'] + '.' + fulltxt
+    fulltxt = yt.title + '.' + fulltxt
     lresult=fulltxt.split(".")
     with open('resultf.txt', 'w+') as fluu:
         for lr in lresult:
