@@ -134,10 +134,10 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2,opption_browse):
         for lr in lresult: 
             fluu.write(lr + '. \n')
 
-    if opption_browse == ":blue[ngôn ngữ nguồn]":        
+    if opption_browse == ":blue[ngữ nguồn]":        
         st.write(fulltxt.replace('.','.\n\n'))
 
-    if opption_browse == ":orange[ngôn ngữ đích]":
+    if opption_browse == ":orange[ngữ đích]":
         txt_translated = Dich_l1_l2(fulltxt, codelang1,codelang2)
         st.write(txt_translated.replace('.','.\n\n'))
         mp3_fp = BytesIO()
@@ -272,7 +272,7 @@ codelang2='vi'
 viec3_speech_to_text = st.checkbox(":orange[$\Large 3.Convert \; Speech \; to \; Text$]",key='M3')
 
 if viec3_speech_to_text:
-    opption_browse = st.radio(":green[Chọn hiển thị:]", [":blue[ngôn ngữ nguồn]",":orange[ngôn ngữ đích]",":blue[song ngữ]"],index=0,horizontal=True,key='R00' ) 
+    opption_browse = st.radio(":green[Chọn hiển thị:]", [":blue[ngữ nguồn]",":orange[ngữ đích]",":blue[song ngữ]"],index=0,horizontal=True,key='R00' ) 
 
     col1, col2=st.columns(2)
     with col1:
