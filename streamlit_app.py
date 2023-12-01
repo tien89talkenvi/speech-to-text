@@ -135,7 +135,7 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2,opption_browse):
             fluu.write(lr + '. \n')
 
     if opption_browse == ":blue[ngôn ngữ nguồn]":        
-        st.write(fulltxt.replace('.','.\n'))
+        st.write(fulltxt.replace('.','.\n\n'))
 
     if opption_browse == ":orange[ngôn ngữ đích]":
         txt_translated = Dich_l1_l2(fulltxt, codelang1,codelang2)
