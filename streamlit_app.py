@@ -5,7 +5,8 @@ import moviepy.editor as mp
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
 from gtts import gTTS, gTTSError   
-from deep_translator import GoogleTranslator
+#from deep_translator import GoogleTranslator
+from googletrans import Translator
 import streamlit.components.v1 as components 
 from io import StringIO,BytesIO
 import os
@@ -30,7 +31,7 @@ st.markdown(f"""
         </style>
          """, unsafe_allow_html=True)
 
-#@st.cache(allow_output_mutation=True)
+@st.cache_data
 def get_info(url):
     yt = YouTube(url)
     streams= yt.streams.filter(progressive= True, type= 'video')
@@ -57,6 +58,7 @@ def get_info(url):
 
 ## cho 3.
 #3.1
+@st.cache_data
 def ma_tieng(tieng):
     global codelang1,codelang2
     sub1='('
@@ -71,7 +73,8 @@ def ma_tieng(tieng):
     return codelang
 
 #3.2.1
-def get_large_audio_transcription(path, r):
+@st.cache_data
+def get_large_audio_transcription(path):
     sound = AudioSegment.from_wav(path)  
     chunks = split_on_silence(sound,
         min_silence_len = 500,
@@ -82,10 +85,12 @@ def get_large_audio_transcription(path, r):
     if not os.path.isdir(folder_name):
         os.mkdir(folder_name)
     whole_text = ""
+    r = sr.Recognizer()
     
     for i, audio_chunk in enumerate(chunks, start=1):
         chunk_filename = os.path.join(folder_name, f"chunk{i}.wav")
         audio_chunk.export(chunk_filename, format="wav")
+
         with sr.AudioFile(chunk_filename) as source:
             audio_listened = r.record(source)
             try:
@@ -100,36 +105,105 @@ def get_large_audio_transcription(path, r):
 
     return whole_text
 
+@st.cache_data
+def Dich_l1_l2(fulltxt, codelang1,codelang2):
+    translator = Translator()
+    txt_translated = translator.translate(fulltxt, src=codelang1,dest=codelang2).text    # Dich ra En theo tai lieu web
+    #txt_translated = GoogleTranslator(source=codelang1,target=codelang2).translate_file(teplsource)        
+    return txt_translated
+
 #3.2
-def Xu_li_speech2text(path_filename,codelang1,codelang2):
+@st.cache_data
+def Xu_li_speech2text(path_filename,codelang1,codelang2,opption_browse):
     tepvideo=os.path.basename(path_filename)
     clip = mp.VideoFileClip(tepvideo)
     tepwav = tepvideo.replace('.mp4', '.wav') 
     clip.audio.write_audiofile(tepwav)
     tepout = tepwav.replace('.wav', '.txt') 
-    fulltxt=''
-    with sr.AudioFile(tepwav) as source:
-        r = sr.Recognizer()
-        fulltxt = get_large_audio_transcription(tepwav, r)
-
+    tieude = youtubeObject.title + ' . '
+    
+    #with sr.AudioFile(tepwav) as source:
+    #    r = sr.Recognizer()
+    fulltxt = get_large_audio_transcription(tepwav)
+    fulltxt=tieude+fulltxt
     # Save vao tep resultf.txt roi dich tep nay
-    fulltxt = youtubeObject.title + '.' + fulltxt
-    lresult=fulltxt.split(".")
-    with open('resultf.txt', 'w+') as fluu:
-        for lr in lresult:
-            fluu.write(lr.strip() +'.\n\n')
-    txt_translated=GoogleTranslator(source=codelang1,target=codelang2).translate_file('resultf.txt')        
-    st.write(txt_translated)
+    #fulltxt = youtubeObject.title + '.' + fulltxt
+    lresult = fulltxt.split(".")
+    teplsource='resultf.txt'
+    with open(teplsource, 'w+') as fluu:
+        for lr in lresult: 
+            fluu.write(lr + '. \n')
 
-    #translator = Translator()
-    #text_translated = translator.translate(fulltxt, src=codelang1,dest=codelang2).text    # Dich ra En theo tai lieu web
-    #st.write(text_translated)
-    mp3_fp = BytesIO()
-    lang_dest=codelang2
-    tts = gTTS(txt_translated, lang=lang_dest)
-    tts.write_to_fp(mp3_fp)
-    mp3_fp.seek(0)  #phai co dong nay thi auto_phat_audio moi phat dc
-    st.audio(mp3_fp, format="audio/wav",start_time=0)
+    if opption_browse == ":blue[ngôn ngữ nguồn]":        
+        st.write(fulltxt.replace('.','.\n'))
+
+    if opption_browse == ":orange[ngôn ngữ đích]":
+        txt_translated = Dich_l1_l2(fulltxt, codelang1,codelang2)
+        st.write(txt_translated.replace('.','.\n\n'))
+        mp3_fp = BytesIO()
+        lang_dest=codelang2
+        tts = gTTS(txt_translated, lang=lang_dest)
+        tts.write_to_fp(mp3_fp)
+        mp3_fp.seek(0)  #phai co dong nay thi auto_phat_audio moi phat dc
+        st.audio(mp3_fp, format="audio/wav",start_time=0)
+
+    if opption_browse == ":blue[song ngữ]":
+        txt_translated = Dich_l1_l2(fulltxt, codelang1,codelang2)        
+        ltext = fulltxt.split('.')
+        rtext = txt_translated.split('.')
+        chp=''
+        for i in range(len(ltext)):
+            chp=chp+"<div class='f-grid'><div class='f-grid-col-left'>" + ltext[i] + "</div><br>"
+            chp=chp+"<div class='f-grid-col-right'>" + rtext[i] + "</div><br>"
+            chp=chp+"</div>"  
+        sty='''
+            body {
+                margin:0;}
+            .f-grid {
+                display: flex;
+                justify-content: space-between;
+                margin-left:0.5rem;
+                flex-flow: row wrap;}
+            .f-grid-col-left {
+                flex: 3 0;
+                margin-left: 0.0rem;
+                margin-right: 0.0rem;
+                margin-bottom: 0.5rem;
+                padding: 0.5rem;
+                font-size: 14pt;}
+            .f-grid-col-right {
+                flex: 3 0;
+                margin-left: 1.0rem;
+                margin-right: 1.0rem;
+                margin-bottom: 0.5rem;
+                padding: 0.5rem;
+                color:green;
+                font-size: 14pt;}
+            '''
+        components.html(f"""
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Tiensg89's App</title>
+                    <style> {sty} </style>
+                    </head>
+                    <body>
+                    <br>
+                    {chp}
+                    <br>
+                    </body>
+                    </html>
+                    """,height=1200,scrolling=True)
+        #            
+        #components.html(html_str, unsafe_allow_html=True)
+        #st.markdown(html_str, unsafe_allow_html=True)
+        #agree = st.checkbox('Đọc text dịch ra đã Ctr-C')
+        #if agree:
+        #    text_translated = pyperclip.paste()
+
 
 ##################################################################################
 st.title(":orange[Speech :open_mouth: in Video to Text] 📝")   #
@@ -176,7 +250,7 @@ if viec1_download:
 
 st.write('---')
 
-viec2_play_video = st.checkbox(":blue[$\Large 2.Play \; Video \; from \; Local$]",key="M2")
+viec2_play_video = st.checkbox(":blue[$\Large 2.Play \; Video$]",key="M2")
 if viec2_play_video:
     opption_play = st.radio(":green[Select one of:]", [":orange[Play video by click download again]",":blue[Upload from local then play]"],index=0,horizontal=True,key='R11' ) 
     if opption_play==":orange[Play video by click download again]":
@@ -198,6 +272,8 @@ codelang2='vi'
 viec3_speech_to_text = st.checkbox(":orange[$\Large 3.Convert \; Speech \; to \; Text$]",key='M3')
 
 if viec3_speech_to_text:
+    opption_browse = st.radio(":green[Chọn hiển thị:]", [":blue[ngôn ngữ nguồn]",":orange[ngôn ngữ đích]",":blue[song ngữ]"],index=0,horizontal=True,key='R00' ) 
+
     col1, col2=st.columns(2)
     with col1:
         language1 = st.selectbox(":blue[với ngôn ngữ nguồn là :]", 
@@ -210,46 +286,46 @@ if viec3_speech_to_text:
 
 
     opption_chon = st.radio(":green[Chọn nguồn video muốn lấy:]", [":blue[tệp downloaded tại mục 1]",":orange[tệp mp4 trong máy]",":blue[tệp mp4 từ URL]"],index=0,horizontal=True,key='R01' ) 
+    st.write('---')
+
     if opption_chon==":blue[tệp downloaded tại mục 1]":
         if url !='':
-            with st.spinner('Wait for converting ...'):
-                youtubeObject = YouTube(url)
-                youtubeObject = youtubeObject.streams.get_highest_resolution()
-                try:
-                    youtubeObject.download()
-                    file_name = youtubeObject.default_filename
-                    #st.write(':blue[Download is completed successfully with file named : ] '+file_name)
-                except:
-                    print("An error has occurred")
-                Xu_li_speech2text(file_name,codelang1,codelang2)
-                st.success('Converting Complete', icon="✅")
-                st.balloons()
+            youtubeObject = YouTube(url)
+            youtubeObject = youtubeObject.streams.get_highest_resolution()
+            try:
+                youtubeObject.download()
+                file_name = youtubeObject.default_filename
+                #st.write(':blue[Download is completed successfully with file named : ] '+file_name)
+            except:
+                print("An error has occurred")
+
+            Xu_li_speech2text(file_name,codelang1,codelang2,opption_browse)
+            st.success('Converting Complete', icon="✅")
+            st.balloons()
 
 
     elif opption_chon==":orange[tệp mp4 trong máy]":
         uploaded_file = st.file_uploader('Chọn tệp mp4 trong máy muốn lấy',type=['mp4'],key='UF1')
         if uploaded_file is not None:
-            with st.spinner('Wait for converting ...'):
-                filename = uploaded_file.name
-                with open(os.path.join("",filename),"wb") as f: 
-                    f.write(uploaded_file.getbuffer())         
-                Xu_li_speech2text(filename,codelang1,codelang2)
-                st.success('Converting Complete', icon="✅")
-                st.balloons()
+            filename = uploaded_file.name
+            with open(os.path.join("",filename),"wb") as f: 
+                f.write(uploaded_file.getbuffer())         
+            Xu_li_speech2text(filename,codelang1,codelang2,opption_browse)
+            st.success('Converting Complete', icon="✅")
+            st.balloons()
 
     else:
         url_of_youtube = st.text_input(':red[Nhập URL của youtube rồi Enter. Ví dụ : https://www.youtube.com/watch?v=Z2iXr8On3LI]',key='IP1')
         if url_of_youtube != '':
-            with st.spinner('Wait for converting ...'):
-                youtubeObject = YouTube(url_of_youtube)
-                youtubeObject = youtubeObject.streams.get_highest_resolution()
-                try:
-                    youtubeObject.download()
-                    file_name = youtubeObject.default_filename
-                    #st.write(':blue[Download is completed successfully with file named : ] '+file_name)
-                except:
-                    print("An error has occurred")
-                Xu_li_speech2text(file_name,codelang1,codelang2)
-                st.success('Converting Complete', icon="✅")
-                st.balloons()
+            youtubeObject = YouTube(url_of_youtube)
+            youtubeObject = youtubeObject.streams.get_highest_resolution()
+            try:
+                youtubeObject.download()
+                file_name = youtubeObject.default_filename
+                #st.write(':blue[Download is completed successfully with file named : ] '+file_name)
+            except:
+                print("An error has occurred")
+            Xu_li_speech2text(file_name,codelang1,codelang2,opption_browse)
+            st.success('Converting Complete', icon="✅")
+            st.balloons()
 
