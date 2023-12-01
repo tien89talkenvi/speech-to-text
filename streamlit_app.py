@@ -153,9 +153,14 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2,opption_browse):
         rtext = txt_translated.split('.')
         chp=''
         for i in range(len(ltext)):
-            chp=chp+"<div class='f-grid'><div class='f-grid-col-left'>" + ltext[i] + "</div><br>"
-            chp=chp+"<div class='f-grid-col-right'>" + rtext[i] + "</div><br>"
-            chp=chp+"</div>"  
+            chi=str(i+1)
+            htm=f"""
+                <div class='f-grid'>
+                    <div class='f-grid-col-left' id='l{chi}'  onclick='layid(this.id)'> {ltext[i]} </div>
+                    <div class='f-grid-col-right' id='r{chi}' onclick='layid(this.id)'> {rtext[i]} </div>
+                </div>
+                """
+            chp=chp+htm      
         sty='''
             body {
                 margin:0;}
@@ -180,23 +185,42 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2,opption_browse):
                 color:green;
                 font-size: 14pt;}
             '''
+        js1='''
+            var giongnoi='en';
+            var textnoi="";
+            var idSo=1
+            function say(textnoi,giongnoi){
+                let speech = new SpeechSynthesisUtterance(textnoi);
+                speech.lang = giongnoi;
+                window.speechSynthesis.speak(speech);
+            }
+            function layid(tenidl){
+                textnoi = document.getElementById(tenidl).innerHTML;
+                if (tenidl.charAt(0) == 'l'){giongnoi='en-GB';} else {giongnoi='en';}
+                say(textnoi, giongnoi);
+            }
+            '''
+        
         components.html(f"""
-                    <!DOCTYPE html>
-                    <html lang="en">
-                    <head>
-                    <meta charset="UTF-8">
-                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Tiensg89's App</title>
-                    <style> {sty} </style>
-                    </head>
-                    <body>
-                    <br>
-                    {chp}
-                    <br>
-                    </body>
-                    </html>
-                    """,height=1200,scrolling=True)
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                        <meta charset="UTF-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Tiensg89's App</title>
+                        <style> {sty} </style>
+                        </head>
+                        <body>
+                        <br>
+                        {chp}
+                        <br>
+                        <script>
+                        {js1}
+                        </script>
+                        </body>
+                        </html>
+                        """,height=1200,scrolling=True)
         #            
         #components.html(html_str, unsafe_allow_html=True)
         #st.markdown(html_str, unsafe_allow_html=True)
