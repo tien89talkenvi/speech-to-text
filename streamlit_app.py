@@ -112,6 +112,51 @@ def Dich_l1_l2(fulltxt, codelang1,codelang2):
     #txt_translated = GoogleTranslator(source=codelang1,target=codelang2).translate_file(teplsource)        
     return txt_translated
 
+@st.cache_data
+def Dem_txtbig_vao_html(fulltxt):
+    ltext = fulltxt.split('.')
+    chp='<br><br>'
+    for text in ltext:
+        chp=chp+'<div class="f-grid">'+text+'</div>'   
+    #with open(tepout, encoding = 'utf-8', mode='w+') as fh:    
+        #fh.write(fulltxt)
+        #os.startfile(tepout)
+        #st.write(fulltxt)
+    js1='''
+        function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'}, 'google_translate_element');}
+        '''
+    js2='''
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+        '''
+    sty='''
+        .f-grid {
+            display: flex;
+            justify-content: space-between;
+            margin-left: 0.0rem;
+            flex-flow: row wrap;
+            font-size: 20px; }
+        '''
+    components.html(f"""
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Tiensg89's App</title>
+                <style> {sty} </style>
+                </head>
+                <body>
+                <div id="google_translate_element" ></div>
+                <script>{js1}</script>
+                <script {js2}></script>
+                {chp}
+                <br><br>
+                </body>
+                </html>
+                """,height=900,scrolling=True)
+    #            
+
 #3.2
 @st.cache_data
 def Xu_li_speech2text(path_filename,codelang1,codelang2,opption_browse):
@@ -133,10 +178,11 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2,opption_browse):
     with open(teplsource, 'w+') as fluu:
         for lr in lresult: 
             fluu.write(lr + '. \n')
-
     if opption_browse == ":blue[ngữ nguồn]":        
-        st.write(fulltxt.replace('.','.\n\n'))
-
+        #st.write(fulltxt.replace('.','.\n\n'))
+        st.write(len(fulltxt))
+        Dem_txtbig_vao_html(fulltxt)
+        return
     if opption_browse == ":orange[ngữ đích]":
         txt_translated = Dich_l1_l2(fulltxt, codelang1,codelang2)
         st.write(txt_translated.replace('.','.\n\n'))
