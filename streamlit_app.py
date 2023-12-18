@@ -242,7 +242,7 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2,opption_browse):
             }
             function layid(tenidl){
                 textnoi = document.getElementById(tenidl).innerHTML;
-                if (tenidl.charAt(0) == 'l'){giongnoi='en-GB';} else {giongnoi='vi-VN';}
+                if (tenidl.charAt(0) == 'l'){giongnoi='en-US';} else {giongnoi='vi-VN';}
                 say(textnoi, giongnoi);
             }
             '''
