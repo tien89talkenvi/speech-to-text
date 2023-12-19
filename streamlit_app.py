@@ -202,8 +202,8 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2,opption_browse):
             chi=str(i+1)
             htm=f"""
                 <div class='f-grid'>
-                    <div class='f-grid-col-left' id='l{chi}'  onclick='layid(this.id)'> {ltext[i]} </div>
-                    <div class='f-grid-col-right' id='r{chi}' onclick='layid(this.id)'> {rtext[i]} </div>
+                    <div class='f-grid-col-left' id='l{chi}'  onclick='layidvaplay(this.id)'> {ltext[i]} </div>
+                    <div class='f-grid-col-right' id='r{chi}' onclick='layidvaplay(this.id)'> {rtext[i]} </div>
                 </div>
                 """
             chp=chp+htm      
@@ -232,18 +232,53 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2,opption_browse):
                 font-size: 14pt;}
             '''
         js1='''
-            var giongnoi='en';
-            var textnoi="";
-            var idSo=1
-            function say(textnoi,giongnoi){
-                let speech = new SpeechSynthesisUtterance(textnoi);
-                speech.lang = giongnoi;
-                window.speechSynthesis.speak(speech);
-            }
-            function layid(tenidl){
-                textnoi = document.getElementById(tenidl).innerHTML;
-                if (tenidl.charAt(0) == 'l'){giongnoi='en-US';} else {giongnoi='vi-VN';}
-                say(textnoi, giongnoi);
+            function layidvaplay(idname){
+                const text = document.getElementById(idname).innerHTML ;
+                const textEl = document.getElementById(idname);
+                textEl.innerHTML = text;
+                play(idname);
+
+                function play(tenidl) {
+                  if (window.speechSynthesis.speaking) {
+                      // there's an unfinished utterance
+                      window.speechSynthesis.resume();
+                  } else {
+                    // start new utterance
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.addEventListener('end', handleEnd);
+                    utterance.addEventListener('boundary', handleBoundary);
+                    if (tenidl.charAt(0) == 'l'){giongnoi='en-GB';} else {giongnoi='vi-VN';}
+                    utterance.lang = giongnoi;
+                    window.speechSynthesis.speak(utterance);
+                  }
+                }
+
+                function handleEnd() {
+                  // reset text to remove mark
+                  textEl.innerHTML = text;
+                }
+                
+                function handleBoundary(event) {
+                  if (event.name === 'sentence') {
+                    // we only care about word boundaries
+                    return;
+                  }
+                
+                  const wordStart = event.charIndex;
+                
+                  let wordLength = event.charLength;
+                  if (wordLength === undefined) {
+                    // Safari doesn't provide charLength, so fall back to a regex to find the current word and its length (probably misses some edge cases, but good enough for this demo)
+                    const match = text.substring(wordStart).match(/^[a-z\d']*/i);
+                    wordLength = match[0].length;
+                  }
+                  
+                  // wrap word in <mark> tag
+                  const wordEnd = wordStart + wordLength;
+                  const word = text.substring(wordStart, wordEnd);
+                  const markedText = text.substring(0, wordStart) + '<mark>' + word + '</mark>' + text.substring(wordEnd);
+                  textEl.innerHTML = markedText;
+                }
             }
             '''
         
