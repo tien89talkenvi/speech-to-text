@@ -247,7 +247,7 @@ def Xu_li_speech2text(path_filename,codelang1,codelang2,opption_browse):
                     const utterance = new SpeechSynthesisUtterance(text);
                     utterance.addEventListener('end', handleEnd);
                     utterance.addEventListener('boundary', handleBoundary);
-                    if (tenidl.charAt(0) == 'l'){giongnoi='en-GB';} else {giongnoi='vi-VN';}
+                    if (tenidl.charAt(0) == 'l'){giongnoi='en-US';} else {giongnoi='vi-VN';}
                     utterance.lang = giongnoi;
                     window.speechSynthesis.speak(utterance);
                   }
