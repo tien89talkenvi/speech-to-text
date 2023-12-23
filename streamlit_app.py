@@ -128,6 +128,24 @@ def Dem_txtbig_vao_html(fulltxt):
     js2='''
         src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
         '''
+    js3='''
+        function speak_text_all(idname){
+        //  khoi dong text_all la bien gloabal  
+        var text_all='';
+        //dem vao list 
+        const nodeList = document.querySelectorAll(".f-grid");
+        // duyet list da lay
+        for (let i = 0; i < nodeList.length; i++) {
+            text_all = text_all + nodeList[i].innerText + '. ' ;
+        }
+        //alert(text_all);
+        const utterance = new SpeechSynthesisUtterance(text_all);
+        let giongnoi='en-US';
+        if (idname.charAt(0) == 'English'){giongnoi='en-US';} else {giongnoi='vi-VN';}
+        utterance.lang = giongnoi;
+        window.speechSynthesis.speak(utterance);
+        }    
+        '''
     sty='''
         .f-grid {
             display: flex;
@@ -150,8 +168,13 @@ def Dem_txtbig_vao_html(fulltxt):
                 <div id="google_translate_element" ></div>
                 <script>{js1}</script>
                 <script {js2}></script>
+                <hr>
                 {chp}
+                <hr>
+                <button id="English" onclick="speak_text_all(this.id)">Speak with English voice</button>
+                <button id="Vietnamese" onclick="speak_text_all(this.id)">Speak with Vietnamese voice</button>
                 <br><br>
+                <script>{js3}</script>
                 </body>
                 </html>
                 """,height=900,scrolling=True)
