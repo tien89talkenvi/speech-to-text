@@ -146,6 +146,11 @@ def Dem_txtbig_vao_html(fulltxt):
         window.speechSynthesis.speak(utterance);
         }    
         '''
+    js4='''
+        function stop() {
+                window.speechSynthesis.cancel();
+        }
+        '''
     sty='''
         .f-grid {
             display: flex;
@@ -173,8 +178,11 @@ def Dem_txtbig_vao_html(fulltxt):
                 <hr>
                 <button id="English" onclick="speak_text_all(this.id)">Speak with English voice</button>
                 <button id="Vietnamese" onclick="speak_text_all(this.id)">Speak with Vietnamese voice</button>
-                <br><br>
                 <script>{js3}</script>
+                <br><br>
+                <button id="stop" onclick="stop()">Stop</button>
+                <script>{js4}</script>
+                <br><br>
                 </body>
                 </html>
                 """,height=900,scrolling=True)
@@ -456,4 +464,3 @@ if viec3_speech_to_text:
             Xu_li_speech2text(file_name,codelang1,codelang2,opption_browse)
             st.success('Converting Complete', icon="✅")
             st.balloons()
-
