@@ -421,7 +421,7 @@ if viec3_speech_to_text:
         codelang2 = ma_tieng(language2)
 
 
-    opption_chon = st.radio(":green[Chọn nguồn video muốn lấy:]", [":blue[tệp downloaded tại mục 1]",":orange[tệp mp4 trong máy]",":blue[tệp mp4 từ URL]"],index=0,horizontal=True,key='R01' ) 
+    opption_chon = st.radio(":green[Chọn nguồn video muốn lấy:]", [":blue[tệp downloaded tại mục 1]",":orange[tệp mp4 trong máy]",":blue[tệp mp4 từ URL]"],index=2,horizontal=True,key='R01' ) 
     st.write('---')
 
     if opption_chon==":blue[tệp downloaded tại mục 1]":
