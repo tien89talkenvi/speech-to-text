@@ -149,6 +149,8 @@ def Dem_txtbig_vao_html(fulltxt):
                 <br><br>
                 <button id="stop" onclick="stop()">Stop</button>
                 <button onclick="copyToClipboard()">Copy</button>
+                <button onclick="history.back()">Go back</button>
+
                 <script>{js4}</script>
                 <script>{js5}</script>
                 <br><br>
