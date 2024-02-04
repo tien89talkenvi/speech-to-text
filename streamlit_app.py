@@ -21,7 +21,7 @@ if not os.path.exists(directory):
 st.set_page_config(page_title="Thong-Thao 20-11-23 ", page_icon="🚀", layout="centered", )     
 st.markdown(f"""
             <style>
-            .stApp {{background-image: linear-gradient(30deg,white,gray);
+            .stApp {{background-image: linear-gradient(0deg,white,yellow);
             background-attachment: fixed;
             background-size: cover}}
         </style>
