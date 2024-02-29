@@ -1,10 +1,13 @@
+# pip install youtube-transcript-api
 import streamlit as st
 import streamlit.components.v1 as components 
 import time
 from youtube_transcript_api import YouTubeTranscriptApi
+#from utils import is_from_youtube, get_youtube_id
 import re
 from urllib import parse
 import json
+from pytube import extract
 
 
 #------------------------------------------
