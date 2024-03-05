@@ -12,6 +12,7 @@ from pytube import extract
 
 #------------------------------------------
 def Lay_ttin_cua_url(url_vid_input):
+    #<iframe width="100%" height="460" src="{url_vid_input}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     id_ofvid = extract.video_id(url_vid_input)
     try:
         transcript_list = YouTubeTranscriptApi.list_transcripts(id_ofvid)
@@ -114,11 +115,7 @@ def Dem_txtbig_vao_html(fulltxt):
                 <button id="Vietnamese" onclick="speak_text_all(this.id)" translate="no">Speak with Vietnamese</button>
                 <button id="stop" onclick="stop()" translate="no">Stop</button>
                 <script>{js3}</script>
-                <script>{js4}
-                //<iframe width="100%" height="460" src="{url_vid_input}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                
-                </script>
-            
+                <script>{js4}</script>
                 {chp}
                 <hr>
                 <br>
