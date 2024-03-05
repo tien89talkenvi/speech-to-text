@@ -105,7 +105,6 @@ def Dem_txtbig_vao_html(fulltxt):
                 <style> {sty} </style>
                 </head>
                 <body>
-                <iframe width="100%" height="460" src="{url_vid_input}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <hr>
                 <div id="google_translate_element" ></div>
                 <script>{js1}</script>
@@ -115,7 +114,10 @@ def Dem_txtbig_vao_html(fulltxt):
                 <button id="Vietnamese" onclick="speak_text_all(this.id)" translate="no">Speak with Vietnamese</button>
                 <button id="stop" onclick="stop()" translate="no">Stop</button>
                 <script>{js3}</script>
-                <script>{js4}</script>
+                <script>{js4}
+                //<iframe width="100%" height="460" src="{url_vid_input}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                
+                </script>
             
                 {chp}
                 <hr>
@@ -125,8 +127,8 @@ def Dem_txtbig_vao_html(fulltxt):
                 """,height=640,scrolling=True)
 
 #==============================================================================
-st.title('Nghe Văn bản của Video Youtube')
-url_vid_input = st.text_input(':green[Nhập URL của youtube rồi Enter. Ví dụ : https://www.youtube.com/embed/lcZDWo6hiuI]',key='IP1')
+st.title('Video Bilingually')
+url_vid_input = st.text_input(':green[Nhập URL của youtube rồi Submit. Ví dụ : https://www.youtube.com/embed/lcZDWo6hiuI]',key='IP1')
 #url_vid_input = st.text_input(':green[Nhập URL của youtube rồi Submit]', value = 'https://www.youtube.com/watch?v=KG0Q05Lnm7s',key='IP1')
 if st.checkbox('Submit'):
     # neu video_input (url) hop le va cai nay cua youtube 
@@ -140,6 +142,7 @@ if st.checkbox('Submit'):
                 text_all = text_all + text_element + ' '
 
             Dem_txtbig_vao_html(text_all)
+            st.video(url_vid_input)
             st.success('Converting Complete', icon="✅")
             st.balloons()
         else:
