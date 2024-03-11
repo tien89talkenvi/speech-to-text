@@ -111,13 +111,14 @@ def Dem_txtbig_vao_html(fulltxt):
                 <script>{js1}</script>
                 <script {js2}></script>
  
+                {chp}
+                <hr>
                 <button id="English" onclick="speak_text_all(this.id)" translate="no">Speak with English</button>
                 <button id="Vietnamese" onclick="speak_text_all(this.id)" translate="no">Speak with Vietnamese</button>
                 <button id="stop" onclick="stop()" translate="no">Stop</button>
                 <script>{js3}</script>
                 <script>{js4}</script>
-                {chp}
-                <hr>
+
                 <br>
                 </body>
                 </html>
