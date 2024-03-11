@@ -87,6 +87,21 @@ def Dem_txtbig_vao_html(fulltxt):
                 window.speechSynthesis.cancel();
         }
         '''
+    js5='''
+        function copyToClipboard() {
+            if (document.selection) { 
+                var range = document.body.createTextRange();
+                range.moveToElementText(document.getElementById('results'));
+                range.select().createTextRange();
+                document.execCommand("copy"); 
+            } else if (window.getSelection) {
+                var range = document.createRange();
+                 range.selectNode(document.getElementById('results'));
+                 window.getSelection().addRange(range);
+                 document.execCommand("copy");
+            }
+        }
+        '''
     sty='''
         .f-grid {
             display: flex;
@@ -116,8 +131,11 @@ def Dem_txtbig_vao_html(fulltxt):
                 <button id="English" onclick="speak_text_all(this.id)" translate="no">Speak with English</button>
                 <button id="Vietnamese" onclick="speak_text_all(this.id)" translate="no">Speak with Vietnamese</button>
                 <button id="stop" onclick="stop()" translate="no">Stop</button>
+                <button id="copy_button" onclick="copyToClipboard()" translate="no">Copy</button>
+
                 <script>{js3}</script>
                 <script>{js4}</script>
+                <script>{js5}</script>
 
                 <br>
                 </body>
