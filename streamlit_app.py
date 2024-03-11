@@ -57,7 +57,7 @@ def Lay_ttin_cua_url(url_vid_input):
 def Dem_txtbig_vao_html(fulltxt):
     ltext = fulltxt.split('.')
     chp='<br><br>'
-    chp=chp+'<div class="f-grid">'+fulltxt+'</div>'
+    chp=chp+'<div class="f-grid" id="results">'+fulltxt+'</div>'
     js0='''
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         '''
