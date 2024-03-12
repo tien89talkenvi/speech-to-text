@@ -58,10 +58,6 @@ def Dem_txtbig_vao_html(fulltxt):
     ltext = fulltxt.split('.')
     chp='<br><br>'
     chp=chp+'<div class="f-grid" id="results">'+fulltxt+'</div>'
-    js0='''
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        '''
-    
     js1='''
         function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'}, 'google_translate_element');}
         '''
@@ -92,9 +88,6 @@ def Dem_txtbig_vao_html(fulltxt):
         }
         '''
     js5='''
-        $("#copy_button").click(function () {
-            setTimeout(copyToClipboard, 500);
-        });
         function copyToClipboard() {
             if (document.selection) { 
                 var range = document.body.createTextRange();
@@ -125,7 +118,6 @@ def Dem_txtbig_vao_html(fulltxt):
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Read Video</title>
-                <script>{js0}</script>
                 <style> {sty} </style>
                 </head>
                 <body>
@@ -139,7 +131,7 @@ def Dem_txtbig_vao_html(fulltxt):
                 <button id="English" onclick="speak_text_all(this.id)" translate="no">Speak with English</button>
                 <button id="Vietnamese" onclick="speak_text_all(this.id)" translate="no">Speak with Vietnamese</button>
                 <button id="stop" onclick="stop()" translate="no">Stop</button>
-                <button id="copy_button" translate="no">Copy</button>
+                <button id="copy_button" onclick="copyToClipboard()" translate="no">Copy</button>
 
                 <script>{js3}</script>
                 <script>{js4}</script>
