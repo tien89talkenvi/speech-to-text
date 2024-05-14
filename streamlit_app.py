@@ -9,37 +9,18 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from pytube import YouTube, extract
 import time
 
-padding_top = 0
-padding_bottom = 10
-padding_left = 1
-padding_right = 10
-# max_width_str = f'max-width: 100%;'
-st.set_page_config(page_title="Speak Youtube Subtitles", layout="wide")
 
-st.markdown(f'''
-            <style>
-                .reportview-container .sidebar-content {{
-                    padding-top: {padding_top}rem;
-                }}
-                .reportview-container .main .block-container {{
-                    padding-top: {padding_top}rem;
-                    padding-right: {padding_right}rem;
-                    padding-left: {padding_left}rem;
-                    padding-bottom: {padding_bottom}rem;
-                }}
-            </style>
-            ''', unsafe_allow_html=True,
-)
+st.set_page_config(page_title="Speak Youtube Subtitles", layout="wide")
 
 #----Set background----------------------------------------------------------------------------------------
 #st.set_page_config(page_title="Video với dịch & đọc phụ đề En-Vi", page_icon="🚀", layout="centered",)     
-#st.markdown(f"""
-#            <style>
-#            .stApp {{background-image: linear-gradient(0deg,lightgrey,lightgrey);
-#            background-attachment: fixed;
-#            background-size: cover}}
-#        </style>
-#         """, unsafe_allow_html=True)
+st.markdown(f"""
+            <style>
+            .stApp {{background-image: linear-gradient(0deg,lightgrey,lightgrey);
+            background-attachment: fixed;
+            background-size: cover}}
+        </style>
+         """, unsafe_allow_html=True)
 
 #----------------------------------------------------------------------------------------------------------
 #------------------------------------------
