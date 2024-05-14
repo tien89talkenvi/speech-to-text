@@ -11,16 +11,17 @@ import time
 
 
 st.set_page_config(page_title="Speak Youtube Subtitles", layout="wide")
+st.markdown(" <style> div[class^='block-container'] { padding-top: 2rem; } </style> ", unsafe_allow_html=True)
 
 #----Set background----------------------------------------------------------------------------------------
 #st.set_page_config(page_title="Video với dịch & đọc phụ đề En-Vi", page_icon="🚀", layout="centered",)     
-st.markdown(f"""
-            <style>
-            .stApp {{background-image: linear-gradient(0deg,lightgrey,lightgrey);
-            background-attachment: fixed;
-            background-size: cover}}
-        </style>
-         """, unsafe_allow_html=True)
+#st.markdown(f"""
+#            <style>
+#            .stApp {{background-image: linear-gradient(0deg,lightgrey,lightgrey);
+#            background-attachment: fixed;
+#            background-size: cover}}
+#        </style>
+#         """, unsafe_allow_html=True)
 
 #----------------------------------------------------------------------------------------------------------
 #------------------------------------------
