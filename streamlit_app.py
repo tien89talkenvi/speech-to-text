@@ -16,6 +16,7 @@ st.set_page_config(page_title="Speak Youtube Subtitles", layout="wide")
 #st.set_page_config(page_title="Video với dịch & đọc phụ đề En-Vi", page_icon="🚀", layout="centered",)     
 st.markdown(f"""
             <style>
+padding-top: 0rem;
             .stApp {{background-image: linear-gradient(0deg,lightgrey,lightgrey);
             background-attachment: fixed;
             background-size: cover}}
