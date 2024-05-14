@@ -291,7 +291,7 @@ def Lap_html_video(transcript_en, videoID):
 
                     <hr>
                     <div class="center"><span id="time"></span>
-                    Translate speak with voice c<select id="select_target_language" onchange ="active_target_lang()"></select>
+                    Speak with voice <select id="select_target_language" onchange ="active_target_lang()"></select>
                     </div>
                     <hr>
                     <div class="center"><button id="btn">SUB</button></div>
