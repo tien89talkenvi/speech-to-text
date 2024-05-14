@@ -229,7 +229,7 @@ def Lap_html_video(transcript_en, videoID):
                         if (time !== lastTimeUpdate) {
                             lastTimeUpdate = time;
                             // It's now up to you to format the time. tinh ra phan tram thoi gian da chay youtub
-                            document.getElementById("time").innerHTML = '(' + Math.round(100*time/player.getDuration()) +' %) &nbsp;';
+                            document.getElementById("time").innerHTML = '(' + Math.round(100*time/player.getDuration()) +'%) &nbsp;';
                         }  
                     }
                 }
@@ -291,7 +291,7 @@ def Lap_html_video(transcript_en, videoID):
 
                     <hr>
                     <div class="center"><span id="time"></span>
-                    Translate & speak with voice <select id="select_target_language" onchange ="active_target_lang()"></select>
+                    Translate speak with voice c<select id="select_target_language" onchange ="active_target_lang()"></select>
                     </div>
                     <hr>
                     <div class="center"><button id="btn">SUB</button></div>
