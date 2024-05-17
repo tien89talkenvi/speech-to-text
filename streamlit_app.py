@@ -114,8 +114,8 @@ def Lap_html_video(transcript_en, videoID):
         var strBuffer = {};
         var btn_elm = document.getElementById('btn');
         var k=0;
-        var lang_dich_ra;
-        var voice_speak_dich;
+        let lang_dich_ra='';
+        let voice_speak_dich='';
 
         //-------- cua Tien tu day xuong ----------
         //tao menu select_target_dialect lang dich ra tu dong dich 
@@ -133,45 +133,16 @@ def Lap_html_video(transcript_en, videoID):
         //lang noi
         voice_speak_dich =  l_target_voices[select_target_language.selectedIndex];
         //alert(voice_speak_dich);
-                populateVoiceList();
-        if (typeof speechSynthesis !== "undefined" && speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = populateVoiceList;
-        }
-
-        function populateVoiceList() {
-        if (typeof speechSynthesis === "undefined") {
-            return;
-        }
-
-        const voices = speechSynthesis.getVoices();
-
-        for (let i = 0; i < voices.length; i++) {
-            const option = document.createElement("option");
-            option.textContent = `${voices[i].name} (${voices[i].lang})`;
-
-            if (voices[i].name.includes('An') || voices[i].name.includes('Linh')) {
-                voice_speak_dich = voices[i].lang;
-                //alert(i,voices[i].name);
-            }
-        }
 
 
         t_translate(lang_source='en', lang_dich_ra=lang_dich_ra);
 
+        populateVoiceList();
+        if (typeof speechSynthesis !== "undefined" && speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+        }
         //------------------------------
-        function active_target_lang() {
-            //let selectedValue = select_target_language.options[select_target_language.selectedIndex].text;
-            let index_chon = select_target_language.selectedIndex;
-
-            lang_dich_ra = l_target_voices[index_chon].slice(0, 2);
-            voice_speak_dich =  l_target_voices[index_chon];
-            //alert(voice_speak_dich);
-            populateVoiceList();
-            if (typeof speechSynthesis !== "undefined" && speechSynthesis.onvoiceschanged !== undefined) {
-                speechSynthesis.onvoiceschanged = populateVoiceList;
-            }
-
-            function populateVoiceList() {
+        function populateVoiceList() {
             if (typeof speechSynthesis === "undefined") {
                 return;
             }
@@ -183,13 +154,29 @@ def Lap_html_video(transcript_en, videoID):
                 option.textContent = `${voices[i].name} (${voices[i].lang})`;
 
                 if (voices[i].name.includes('An') || voices[i].name.includes('Linh')) {
-                    voice_speak_dich = voices[i].lang;
+                    voice_speak_dich = voices[i];
                     //alert(i,voices[i].name);
                 }
             }
+        }        
 
+
+        //------------------------------
+        function active_target_lang() {
+            //let selectedValue = select_target_language.options[select_target_language.selectedIndex].text;
+            let index_chon = select_target_language.selectedIndex;
+
+            lang_dich_ra = l_target_voices[index_chon].slice(0, 2);
+            voice_speak_dich =  l_target_voices[index_chon];
+            //alert(voice_speak_dich);
 
             t_translate(lang_source='en', lang_dich_ra=lang_dich_ra);
+            
+            populateVoiceList();
+            if (typeof speechSynthesis !== "undefined" && speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = populateVoiceList;
+            }
+
         }
         //---Dich ra ----------------------------------------- 
         function t_translate(lang_source, lang_dich_ra) { 
@@ -368,7 +355,7 @@ def Lap_html_video(transcript_en, videoID):
 st.title('Speak Youtube Subtitles')
 #----------------------------------------------------------------------------------------------------------------
 link_vidu = "https://www.youtube.com/embed/5MgBikgcWnY?enablejsapi=1"
-url_vid_input = st.text_input(':green[Nhập URL của youtube rồi Submit. Ví dụ : https://www.youtube.com/embed/5MgBikgcWnY?enablejsapi=1]', placeholder = link_vidu, key='IP1')
+url_vid_input = st.text_input(':green[Nhập URL của youtube rồi Submit. Ví dụ : https://www.youtube.com/embed/5MgBikgcWnY?enablejsapi=1]',link_vidu, label_visibility="hidden", key='IP1')
 
 if st.checkbox('Accept') and url_vid_input:
     try:
