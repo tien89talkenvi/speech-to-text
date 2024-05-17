@@ -3,9 +3,9 @@
 # pip install pytube
 # pip install googletrans==4.0.0rc1
 # pip install  yt-dlp
+from youtube_transcript_api import YouTubeTranscriptApi
 import streamlit as st
 import streamlit.components.v1 as components 
-from youtube_transcript_api import YouTubeTranscriptApi
 from pytube import YouTube, extract
 import time
 
@@ -114,52 +114,26 @@ def Lap_html_video(transcript_en, videoID):
         var strBuffer = {};
         var btn_elm = document.getElementById('btn');
         var k=0;
-        let lang_dich_ra='';
-        let voice_speak_dich='';
+        var lang_dich_ra;
+        var voice_speak_dich;
 
-        //-------- cua Tien tu day xuong ----------
         //tao menu select_target_dialect lang dich ra tu dong dich 
         let l_target_language = ['Danish', 'English', 'French', 'German', 'Italian', 'Japanese', 'Korean', 'Mexico', 'Nederlands', 'Rusian', 'Taiwan', 'Thai', 'Vietnamese' ]; 
         let l_target_voices = ['da-DK', 'en-US', 'fr-FR', 'de-DE', 'it-IT', 'ja-JP', 'ko-KR', 'es-MX', 'nl-NL', 'ru-RU', 'zh-TW', 'th-TH', 'vi-VN' ]; 
-
+        //Dem vao menu
         for (var i = 0; i < l_target_language.length; i++) {
-            select_target_language.options.add(new Option(l_target_language[i]));
-            if (i==12) {
-                select_target_language.selectedIndex=i;
-            }
+        select_target_language.options.add(new Option(l_target_language[i]));
+        if (l_target_voices[i].includes('vi-VN')){
+        //if (i==12) {//chon default la vi va vi-VN
+            select_target_language.selectedIndex=i;
+        }
         }
         //lang dich
         lang_dich_ra = l_target_voices[select_target_language.selectedIndex].slice(0, 2);
         //lang noi
         voice_speak_dich =  l_target_voices[select_target_language.selectedIndex];
         //alert(voice_speak_dich);
-
-
         t_translate(lang_source='en', lang_dich_ra=lang_dich_ra);
-
-        populateVoiceList();
-        if (typeof speechSynthesis !== "undefined" && speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = populateVoiceList;
-        }
-        //------------------------------
-        function populateVoiceList() {
-            if (typeof speechSynthesis === "undefined") {
-                return;
-            }
-
-            const voices = speechSynthesis.getVoices();
-
-            for (let i = 0; i < voices.length; i++) {
-                const option = document.createElement("option");
-                option.textContent = `${voices[i].name} (${voices[i].lang})`;
-
-                if (voices[i].name.includes('An') || voices[i].name.includes('Linh')) {
-                    voice_speak_dich = voices[i].lang;
-                    //alert(i,voices[i].name);
-                }
-            }
-        }        
-
 
         //------------------------------
         function active_target_lang() {
@@ -172,11 +146,6 @@ def Lap_html_video(transcript_en, videoID):
 
             t_translate(lang_source='en', lang_dich_ra=lang_dich_ra);
             
-            populateVoiceList();
-            if (typeof speechSynthesis !== "undefined" && speechSynthesis.onvoiceschanged !== undefined) {
-                speechSynthesis.onvoiceschanged = populateVoiceList;
-            }
-
         }
         //---Dich ra ----------------------------------------- 
         function t_translate(lang_source, lang_dich_ra) { 
