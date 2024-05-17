@@ -11,7 +11,7 @@ import time
 
 
 st.set_page_config(page_title="Speak Youtube Subtitles", layout="wide")
-st.markdown(" <style> div[class^='block-container'] { padding-top: 2rem; } </style> ", unsafe_allow_html=True)
+st.markdown(" <style> div[class^='block-container'] { padding-top: 0rem; } </style> ", unsafe_allow_html=True)
 
 #----Set background----------------------------------------------------------------------------------------
 #st.set_page_config(page_title="Video với dịch & đọc phụ đề En-Vi", page_icon="🚀", layout="centered",)     
@@ -114,6 +114,8 @@ def Lap_html_video(transcript_en, videoID):
         var strBuffer = {};
         var btn_elm = document.getElementById('btn');
         var k=0;
+        var lang_dich_ra;
+        var voice_speak_dich;
 
         //-------- cua Tien tu day xuong ----------
         //tao menu select_target_dialect lang dich ra tu dong dich 
@@ -131,6 +133,28 @@ def Lap_html_video(transcript_en, videoID):
         //lang noi
         voice_speak_dich =  l_target_voices[select_target_language.selectedIndex];
         //alert(voice_speak_dich);
+                populateVoiceList();
+        if (typeof speechSynthesis !== "undefined" && speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+        }
+
+        function populateVoiceList() {
+        if (typeof speechSynthesis === "undefined") {
+            return;
+        }
+
+        const voices = speechSynthesis.getVoices();
+
+        for (let i = 0; i < voices.length; i++) {
+            const option = document.createElement("option");
+            option.textContent = `${voices[i].name} (${voices[i].lang})`;
+
+            if (voices[i].name.includes('An') || voices[i].name.includes('Linh')) {
+                voice_speak_dich = voices[i];
+                //alert(i,voices[i].name);
+            }
+        }
+
 
         t_translate(lang_source='en', lang_dich_ra=lang_dich_ra);
 
@@ -142,6 +166,28 @@ def Lap_html_video(transcript_en, videoID):
             lang_dich_ra = l_target_voices[index_chon].slice(0, 2);
             voice_speak_dich =  l_target_voices[index_chon];
             //alert(voice_speak_dich);
+            populateVoiceList();
+            if (typeof speechSynthesis !== "undefined" && speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = populateVoiceList;
+            }
+
+            function populateVoiceList() {
+            if (typeof speechSynthesis === "undefined") {
+                return;
+            }
+
+            const voices = speechSynthesis.getVoices();
+
+            for (let i = 0; i < voices.length; i++) {
+                const option = document.createElement("option");
+                option.textContent = `${voices[i].name} (${voices[i].lang})`;
+
+                if (voices[i].name.includes('An') || voices[i].name.includes('Linh')) {
+                    voice_speak_dich = voices[i];
+                    //alert(i,voices[i].name);
+                }
+            }
+
 
             t_translate(lang_source='en', lang_dich_ra=lang_dich_ra);
         }
