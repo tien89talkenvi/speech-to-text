@@ -154,7 +154,7 @@ def Lap_html_video(transcript_en, videoID):
                 option.textContent = `${voices[i].name} (${voices[i].lang})`;
 
                 if (voices[i].name.includes('An') || voices[i].name.includes('Linh')) {
-                    voice_speak_dich = voices[i];
+                    voice_speak_dich = voices[i].lang;
                     //alert(i,voices[i].name);
                 }
             }
