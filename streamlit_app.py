@@ -91,11 +91,12 @@ def Lap_html_video(transcript_en, videoID):
             padding: 1rem;
             color:darkblue;}
         .center {
-            font-size: 15pt;
+            font-size: 13pt;
             display: flex;
             justify-content: center;
             align-items: center;}
         h2 { 
+            font-size: 15pt;
             text-align: center;
             color:green;}
         #btn {
@@ -118,34 +119,60 @@ def Lap_html_video(transcript_en, videoID):
         var voice_speak_dich;
 
         //tao menu select_target_dialect lang dich ra tu dong dich 
-        let l_target_language = ['Danish', 'English', 'French', 'German', 'Italian', 'Japanese', 'Korean', 'Mexico', 'Nederlands', 'Rusian', 'Taiwan', 'Thai', 'Vietnamese' ]; 
-        let l_target_voices = ['da-DK', 'en-US', 'fr-FR', 'de-DE', 'it-IT', 'ja-JP', 'ko-KR', 'es-MX', 'nl-NL', 'ru-RU', 'zh-TW', 'th-TH', 'vi-VN' ]; 
-        //Dem vao menu
-        for (var i = 0; i < l_target_language.length; i++) {
-        select_target_language.options.add(new Option(l_target_language[i]));
-        if (l_target_voices[i].includes('vi-VN')){
-        //if (i==12) {//chon default la vi va vi-VN
-            select_target_language.selectedIndex=i;
-        }
-        }
-        //lang dich
-        lang_dich_ra = l_target_voices[select_target_language.selectedIndex].slice(0, 2);
-        //lang noi
-        voice_speak_dich =  l_target_voices[select_target_language.selectedIndex];
-        //alert(voice_speak_dich);
-        t_translate(lang_source='en', lang_dich_ra=lang_dich_ra);
+        let l_target_language = ['Danish', 'English', 'French', 'German', 'Italian', 'Japanese', 'Korean', 'Mexico', 'Nederlands', 'Rusian', 'Taiwan', 'Thai', 'Vietnamese']; 
+        let l_target_voices = ['da-DK', 'en-US', 'fr-FR', 'de-DE', 'it-IT', 'ja-JP', 'ko-KR', 'es-MX', 'nl-NL', 'ru-RU', 'zh-TW', 'th-TH', 'vi-VN']; 
+        let l_target_voices_tg = []; 
 
-        //------------------------------
+        //---------------------------------
+        function populateVoiceList() {
+            if (typeof speechSynthesis === "undefined") {
+                return;
+            }
+            const voices = speechSynthesis.getVoices();
+            for (let i = 0; i < voices.length; i++) {
+                //neu voices[i].lang co trong l_target_voices va voices[i].lang chua co trong l_target_voices_tg thi lay 
+                //l_target_language[l_target_voices.indexOf(voices[i].lang] dua vao  select_target_language
+                if ( l_target_voices.indexOf(voices[i].lang) >= 0 ){
+                    select_target_language.options.add(new Option(l_target_language[l_target_voices.indexOf(voices[i].lang)]+' ('+voices[i].lang+') - '+voices[i].name.substring(0,voices[i].name.search("-"))));
+                    //cai nay de kiem tra voices[i].lang dem vao chi 1 lan
+                    l_target_voices_tg.push(voices[i].lang);
+                    //chon default
+                    if (voices[i].lang.includes('vi-VN') && (voices[i].name.includes('An') || voices[i].name.includes('Linh')) ){
+                        //hai bien global lay gia tri ghi vao memory
+                        lang_dich_ra = voices[i].lang.slice(0, 2) ;
+                        voice_speak_dich = voices[i].lang;
+                        //chi dinh default trong menu se hien ra
+                        let indexChon = l_target_voices_tg.indexOf(voices[i].lang);
+                        select_target_language.selectedIndex = indexChon;
+                        t_translate(lang_source='en', lang_dich_ra=lang_dich_ra);
+                    }
+                }
+            }
+        }
+        //---------------------
+        populateVoiceList();
+        if (typeof speechSynthesis !== "undefined" && speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+        }
+        //-----------------------------------------------
         function active_target_lang() {
             //let selectedValue = select_target_language.options[select_target_language.selectedIndex].text;
             let index_chon = select_target_language.selectedIndex;
-
-            lang_dich_ra = l_target_voices[index_chon].slice(0, 2);
-            voice_speak_dich =  l_target_voices[index_chon];
-            //alert(voice_speak_dich);
-
-            t_translate(lang_source='en', lang_dich_ra=lang_dich_ra);
-            
+            //let text_brow = select_target_language.value;
+            let lang_rut = l_target_voices_tg[index_chon];
+            //alert(lang_rut);
+            if (typeof speechSynthesis === "undefined") {
+                return;
+            }
+            const voices = speechSynthesis.getVoices();
+            for (let i = 0; i < voices.length; i++) {
+                if (voices[i].lang.includes(lang_rut)){
+                    lang_dich_ra = lang_rut.slice(0, 2);
+                    voice_speak_dich =  voices[i].lang;
+                    t_translate(lang_source='en', lang_dich_ra=lang_dich_ra);
+                    return;
+                }  
+            }
         }
         //---Dich ra ----------------------------------------- 
         function t_translate(lang_source, lang_dich_ra) { 
