@@ -133,11 +133,11 @@ def Lap_html_video(transcript_en, videoID):
                 //neu voices[i].lang co trong l_target_voices va voices[i].lang chua co trong l_target_voices_tg thi lay 
                 //l_target_language[l_target_voices.indexOf(voices[i].lang] dua vao  select_target_language
                 if ( l_target_voices.indexOf(voices[i].lang) >= 0 ){
-                    select_target_language.options.add(new Option(l_target_language[l_target_voices.indexOf(voices[i].lang)]+' ('+voices[i].lang+') - '+voices[i].name.substring(0,voices[i].name.search("-"))));
+                    select_target_language.options.add(new Option(l_target_language[l_target_voices.indexOf(voices[i].lang)]+' ('+voices[i].lang+') - '+voices[i].name));
                     //cai nay de kiem tra voices[i].lang dem vao chi 1 lan
                     l_target_voices_tg.push(voices[i].lang);
                     //chon default
-                    if (voices[i].lang.includes('vi-VN') && (voices[i].name.includes('An') || voices[i].name.includes('Linh')) ){
+                    if (voices[i].lang.includes('vi-VN') && (voices[i].name.includes('Linh') || voices[i].name.includes('An')) ){
                         //hai bien global lay gia tri ghi vao memory
                         lang_dich_ra = voices[i].lang.slice(0, 2) ;
                         voice_speak_dich = voices[i].lang;
@@ -145,6 +145,7 @@ def Lap_html_video(transcript_en, videoID):
                         let indexChon = l_target_voices_tg.indexOf(voices[i].lang);
                         select_target_language.selectedIndex = indexChon;
                         t_translate(lang_source='en', lang_dich_ra=lang_dich_ra);
+                        //return;
                     }
                 }
             }
@@ -321,7 +322,7 @@ def Lap_html_video(transcript_en, videoID):
 
                     <hr>
                     <div class="center"><span id="time"></span>
-                    Speak with voice &nbsp; <select id="select_target_language" onchange ="active_target_lang()"></select>
+                    Voice &nbsp; <select id="select_target_language" onchange ="active_target_lang()"></select>
                     </div>
                     <hr>
                     <div class="center"><button id="btn">SUB</button></div>
