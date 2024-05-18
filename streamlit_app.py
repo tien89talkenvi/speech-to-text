@@ -96,7 +96,7 @@ def Lap_html_video(transcript_en, videoID):
             justify-content: center;
             align-items: center;}
         h2 { 
-            font-size: 18pt;
+            font-size: 20pt;
             text-align: center;
             color:green;}
         #btn {
