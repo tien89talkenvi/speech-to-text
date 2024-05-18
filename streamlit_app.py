@@ -247,10 +247,10 @@ def Lap_html_video(transcript_en, videoID):
                             subtitle.innerText = text; 
 
                             //phat am----------------------------------------
-                            var msg     = new SpeechSynthesisUtterance();
+                            var msg     = new SpeechSynthesisUtterance(text);
                             msg.volume = 1; // 0 to 1, does not seem to work
                             msg.lang = voice_speak_dich;
-                            msg.text = text;
+                            //msg.text = text;
                             speechSynthesis.speak(msg);
                         }//--------------------------------------------------
                         //Cu sau moi sec thi hien thi thoi gian
