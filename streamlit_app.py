@@ -269,6 +269,7 @@ def Lap_html_video(transcript_en, videoID):
                             //phat am----------------------------------------
                             rate = Number(document.getElementById('vnoi').innerHTML).toFixed(1);
                             var msg     = new SpeechSynthesisUtterance();
+                            msg.volume = 1;
                             msg.rate = rate; // 0 to 1, does not seem to work
                             msg.lang = voice_speak_dich;
                             msg.text = text;
