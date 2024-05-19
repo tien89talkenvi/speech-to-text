@@ -108,6 +108,25 @@ def Lap_html_video(transcript_en, videoID):
             background-color: #777;}
         #elm_url_yt{
             font-size: 0pt;}
+        .rateread {
+            font-size: 13pt;
+            display: flex;
+            justify-content: center;
+            align-items: center;}
+        #trudi{
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            border: none;} 
+        #congthem {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            border: none;}
+        #vnoi {
+            height: 40px;
+            width: 40px;
+            border: 4;}
         '''
 
     js1='''
@@ -117,6 +136,7 @@ def Lap_html_video(transcript_en, videoID):
         var k=0;
         var lang_dich_ra;
         var voice_speak_dich;
+        var rate =  Number(document.getElementById('vnoi').innerHTML).toFixed(1);   
 
         //tao menu select_target_dialect lang dich ra tu dong dich 
         let l_target_language = ['Danish', 'English', 'French', 'German', 'Italian', 'Japanese', 'Korean', 'Mexico', 'Nederlands', 'Rusian', 'Taiwan', 'Thai', 'Vietnamese']; 
@@ -247,11 +267,13 @@ def Lap_html_video(transcript_en, videoID):
                             subtitle.innerText = text; 
 
                             //phat am----------------------------------------
-                            var msg     = new SpeechSynthesisUtterance(text);
-                            msg.volume = 1; // 0 to 1, does not seem to work
+                            rate = Number(document.getElementById('vnoi').innerHTML).toFixed(1);
+                            var msg     = new SpeechSynthesisUtterance();
+                            msg.rate = rate; // 0 to 1, does not seem to work
                             msg.lang = voice_speak_dich;
-                            //msg.text = text;
+                            msg.text = text;
                             speechSynthesis.speak(msg);
+                
                         }//--------------------------------------------------
                         //Cu sau moi sec thi hien thi thoi gian
                         // currentTime is emitted very frequently (milliseconds), but we only care about whole second changes.
@@ -276,6 +298,20 @@ def Lap_html_video(transcript_en, videoID):
                 strBuffer[start] = text;
             });
             return strBuffer;
+        }
+        //------------------------------------------------------
+        function cong1(){
+            rate =  Number(document.getElementById('vnoi').innerHTML).toFixed(1);
+            if (rate >= 0.0 && rate < 3.0) {
+                document.getElementById('vnoi').innerHTML = (Number(document.getElementById('vnoi').innerHTML) + Number("0.1")).toFixed(1);
+            }
+        }
+        //----------------    
+        function tru1(){
+            rate =  Number(document.getElementById('vnoi').innerHTML).toFixed(1);
+            if (rate <= 3 && rate > 0) {
+                document.getElementById('vnoi').innerHTML = (Number(document.getElementById('vnoi').innerHTML) - Number("0.1")).toFixed(1);
+            }
         }
         //------Moi lan click thi hien thi hoac an di subtitles-------
         btn_elm.onclick = function(){
@@ -321,9 +357,15 @@ def Lap_html_video(transcript_en, videoID):
                     <p id="elm_url_yt">{videoID}</p>
 
                     <hr>
-                    <div class="center"><span id="time"></span>
-                    Voice &nbsp; <select id="select_target_language" onchange ="active_target_lang()"></select>
+                    <div class="center">
+                        Voice &nbsp; <select id="select_target_language" onchange ="active_target_lang()"></select>&emsp;<span id="time"></span>
+                    </div><br>
+                    <div class="rateread">
+                        <button id="trudi" onclick="tru1()">-</button>&emsp; &emsp; 
+                        <button id="vnoi">1.5</button>&emsp; &emsp; 
+                        <button id="congthem" onclick="cong1()">+</button>
                     </div>
+
                     <hr>
                     <div class="center"><button id="btn">SUB</button></div>
                     <h2 id="subtitle"></h2>
