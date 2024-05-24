@@ -228,6 +228,7 @@ def Lap_html_video(transcript_en, videoID):
         let player;
         let timeStart = 0;
         let timeStartl = -1;
+
         //-----------------------------------
         function onYouTubeIframeAPIReady() {
 
@@ -267,13 +268,7 @@ def Lap_html_video(transcript_en, videoID):
                             subtitle.innerText = text; 
 
                             //phat am----------------------------------------
-                            rate = Number(document.getElementById('vnoi').innerHTML).toFixed(1);
-                            var msg     = new SpeechSynthesisUtterance();
-                            msg.volume = 1;
-                            msg.rate = rate; // 0 to 1, does not seem to work
-                            msg.lang = voice_speak_dich;
-                            msg.text = text;
-                            speechSynthesis.speak(msg);
+                            Read_Sub(text);
                 
                         }//--------------------------------------------------
                         //Cu sau moi sec thi hien thi thoi gian
@@ -338,6 +333,17 @@ def Lap_html_video(transcript_en, videoID):
                 }
             }
         }
+        //--------------------------
+        function Read_Sub(text){
+            rate = Number(document.getElementById('vnoi').innerHTML).toFixed(1);
+            var msg     = new SpeechSynthesisUtterance();
+            msg.volume = 1;
+            msg.rate = rate; // 0 to 1, does not seem to work
+            msg.lang = voice_speak_dich;
+            msg.text = text;
+            speechSynthesis.speak(msg);
+        
+        }
         //--------------------------------------------------------------
         '''
     components.html(f"""
@@ -361,9 +367,18 @@ def Lap_html_video(transcript_en, videoID):
                     <div class="center">
                         Voice &nbsp; <select id="select_target_language" onchange ="active_target_lang()"></select>&emsp;<span id="time"></span>
                     </div><br>
+
+                    <div class="rateread">
+                        <button id="read_sub" onclick="Read_Sub()">Speak</button>&emsp; &emsp; 
+                        <button id="trudi" onclick="tru1()">-</button>&emsp; &emsp; 
+                        <button id="vnoi">2.0</button>&emsp; &emsp; 
+                        <button id="congthem" onclick="cong1()">+</button>&emsp; &emsp;
+                        <button id="stop_read">Stop</button>&emsp;
+                    </div>
+
                     <div class="rateread">
                         <button id="trudi" onclick="tru1()">-</button>&emsp; &emsp; 
-                        <button id="vnoi">1.5</button>&emsp; &emsp; 
+                        <button id="vnoi">1.2</button>&emsp; &emsp; 
                         <button id="congthem" onclick="cong1()">+</button>
                     </div>
 
