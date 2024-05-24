@@ -372,8 +372,8 @@ def Lap_html_video(transcript_en, videoID):
                         <button id="read_sub" onclick="Read_Sub()">Speak</button>&emsp; &emsp; 
                         <button id="trudi" onclick="tru1()">-</button>&emsp; &emsp; 
                         <button id="vnoi">1.2</button>&emsp; &emsp; 
-                        <button id="congthem" onclick="cong1()">+</button>&emsp; &emsp;
-                        <button id="stop_read">Stop</button>&emsp;
+                        <button id="congthem" onclick="cong1()">+</button>&emsp;&emsp;
+                        <button id="stop_read">Stop&emsp;</button>
                     </div>
 
                     <hr>
@@ -401,10 +401,13 @@ def Lap_html_video(transcript_en, videoID):
 #https://youtu.be/Zgfi7wnGZlE?si=TzeWpiERRxzdJKVA   obama           ok en vi (#1h)
 
 #---Bat Dau Main ------------------------------------------------------------------------------------------------
-st.title('Speak Youtube Subtitles')
+#st.title('Speak Youtube Subtitles')
+st.markdown("<h1 style='text-align: center; color: grey;'>Speak Youtube Subtitles</h1>", unsafe_allow_html=True)
+
 #----------------------------------------------------------------------------------------------------------------
 link_vidu = "https://www.youtube.com/embed/5MgBikgcWnY?enablejsapi=1"
-url_vid_input = st.text_input(':green[Nhập URL của youtube rồi Submit. Ví dụ : https://www.youtube.com/embed/5MgBikgcWnY?enablejsapi=1]',link_vidu, label_visibility="hidden", key='IP1')
+
+url_vid_input = st.text_input("<h2 style='text-align: center; font-size: 2pt;'>'+link_vidu+'</h2>",link_vidu, label_visibility="hidden", key='IP1')
 
 if st.checkbox('Accept') and url_vid_input:
     try:
@@ -429,4 +432,3 @@ if st.checkbox('Accept') and url_vid_input:
         st.error('Unsuccessful !', icon="🚨")
 
 #------------------
-
