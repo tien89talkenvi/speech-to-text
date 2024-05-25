@@ -369,7 +369,7 @@ def Lap_html_video(transcript_en, videoID):
                         <button id="trudi" onclick="tru1()">-</button>&emsp; &emsp; 
                         <button id="vnoi">1.2</button>&emsp; &emsp; 
                         <button id="congthem" onclick="cong1()">+</button>&emsp;&emsp;
-                        <button id="btn">&emsp;Sub&emsp;</button>
+                        <button id="btn">Sub</button>
                     </div>
 
                     <hr>
