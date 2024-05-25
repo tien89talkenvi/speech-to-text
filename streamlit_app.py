@@ -99,13 +99,6 @@ def Lap_html_video(transcript_en, videoID):
             font-size: 20pt;
             text-align: center;
             color:green;}
-        #btn {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            border: none;
-            color:white;
-            background-color: #777;}
         #elm_url_yt{
             font-size: 0pt;}
         .rateread {
@@ -156,11 +149,14 @@ def Lap_html_video(transcript_en, videoID):
                     select_target_language.options.add(new Option(l_target_language[l_target_voices.indexOf(voices[i].lang)]+' ('+voices[i].lang+') - '+voices[i].name));
                     //cai nay de kiem tra voices[i].lang dem vao chi 1 lan
                     l_target_voices_tg.push(voices[i].lang);
+                    
                     //chon default
-                    if (voices[i].lang.includes('vi-VN') && (voices[i].name.includes('Linh') || voices[i].name.includes('An')) ){
+                    //if (voices[i].lang.includes('vi-VN') && (voices[i].name.includes('Linh') || voices[i].name.includes('An')) ){
+                    if (voices[i].lang.includes('vi-VN') ){
                         //hai bien global lay gia tri ghi vao memory
                         lang_dich_ra = voices[i].lang.slice(0, 2) ;
                         voice_speak_dich = voices[i].lang;
+             
                         //chi dinh default trong menu se hien ra
                         let indexChon = l_target_voices_tg.indexOf(voices[i].lang);
                         select_target_language.selectedIndex = indexChon;
@@ -373,11 +369,10 @@ def Lap_html_video(transcript_en, videoID):
                         <button id="trudi" onclick="tru1()">-</button>&emsp; &emsp; 
                         <button id="vnoi">1.2</button>&emsp; &emsp; 
                         <button id="congthem" onclick="cong1()">+</button>&emsp;&emsp;
-                        <button id="stop_read">Stop&emsp;</button>
+                        <button id="btn">&emsp;Sub&emsp;</button>
                     </div>
 
                     <hr>
-                    <div class="center"><button id="btn">SUB</button></div>
                     <h2 id="subtitle"></h2>
 
 
@@ -391,6 +386,7 @@ def Lap_html_video(transcript_en, videoID):
                 </body>
                 </html>
                 """,height=900,scrolling=True)
+
 
 #==============================================================================
 #https://youtu.be/3c-iBn73dDE?si=loeUZPwUmmh0iGW4   2h 40phut
