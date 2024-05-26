@@ -368,7 +368,7 @@ def Lap_html_video(transcript_en, videoID):
                     <div class="rateread">
                         <button id="read_sub" onclick="Read_Sub()">Speak</button>&emsp; &emsp; 
                         <button id="trudi" onclick="tru1()">-</button>&emsp; &emsp; 
-                        <button id="vnoi">1.2</button>&emsp; &emsp; 
+                        <button id="vnoi">2.0</button>&emsp; &emsp; 
                         <button id="congthem" onclick="cong1()">+</button>&emsp;&emsp;
                         <button id="btn">Sub</button>
                     </div>
