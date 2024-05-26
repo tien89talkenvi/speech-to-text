@@ -96,7 +96,7 @@ def Lap_html_video(transcript_en, videoID):
             justify-content: center;
             align-items: center;}
         h2 { 
-            font-size: 20pt;
+            font-size: 24pt;
             text-align: center;
             color:green;}
         #elm_url_yt{
