@@ -66,11 +66,6 @@ def Lap_html_video(transcript_en, videoID):
             left: 0;
             width: 100%;
             height: 100%;}
-        .youtube-marker-r:hover {
-            cursor: pointer;
-            text-decoration: underline;}
-        .youtube-marker-r-current {
-            background: rgba(126, 126, 126, 0.4);}
         .f-grid {
             display: flex;
             justify-content: space-between;
@@ -90,6 +85,11 @@ def Lap_html_video(transcript_en, videoID):
             font-size: 0pt;
             padding: 1rem;
             color:darkblue;}
+        .youtube-marker-r:hover {
+            cursor: pointer;}
+        .youtube-marker-r-current {
+            font-weight: bold;
+            color : red;}
         .center {
             font-size: 13pt;
             display: flex;
@@ -119,6 +119,7 @@ def Lap_html_video(transcript_en, videoID):
         #vnoi {
             height: 40px;
             width: 40px;
+            color: blue;
             border: 4;}
         '''
 
