@@ -110,16 +110,19 @@ def Lap_html_video(transcript_en, videoID):
             justify-content: center;
             align-items: center;}
         #trudi{
+            color:red;
             height: 30px;
             width: 30px;
             border-radius: 50%;
             border: none;} 
         #congthem {
+            color:red;
             height: 30px;
             width: 30px;
             border-radius: 50%;
             border: none;}
         #vnoi {
+            color:blue;
             height: 40px;
             width: 40px;
             border: 4;}
