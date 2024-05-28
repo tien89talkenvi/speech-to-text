@@ -90,7 +90,7 @@ def Lap_html_video(transcript_en, videoID):
         .youtube-marker-r:hover {
             cursor: pointer;}
         .youtube-marker-r-current {
-            color: red;}
+            color: brown;}
         .center {
             font-size: 13pt;
             display: flex;
@@ -407,16 +407,17 @@ def Lap_html_video(transcript_en, videoID):
 
 #---Bat Dau Main ------------------------------------------------------------------------------------------------
 #st.title('Speak Youtube Subtitles')
-st.markdown("<h1 style='text-align: center; color: grey;'>Speak Youtube Subtitles</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: green;'>Speak Youtube Subtitles</h1>", unsafe_allow_html=True)
+link_vidu = "https://www.youtube.com/embed/5MgBikgcWnY?enablejsapi=1"
+st.markdown("<h6 style='text-align: center; color: lightgrey;'>"+link_vidu+"</h6>", unsafe_allow_html=True)
 
 #----------------------------------------------------------------------------------------------------------------
-link_vidu = "https://www.youtube.com/embed/5MgBikgcWnY?enablejsapi=1"
 
 state=st.session_state
 if 'texts' not in state:
     state.texts = ""
     
-url_vid_input = input_box(min_lines=1,max_lines=10,just_once=True)
+url_vid_input = input_box(min_lines=1,max_lines=3,just_once=True)
 #st.text(url_vid_input)
 
 #url_vid_input = st.text_input("<h2 style='text-align: center; font-size: 2pt;'>'+link_vidu+'</h2>",link_vidu, label_visibility="hidden", key='IP1')
