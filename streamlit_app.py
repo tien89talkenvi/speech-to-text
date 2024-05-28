@@ -440,7 +440,7 @@ if url_vid_input :
         tieude = yt.title
         
         #st.markdown("<h4 style='text-align: center; color: brown;'>"+tieude+"</h4>", unsafe_allow_html=True)
-        placeholder1.markdown("<h4 style='text-align: center; color:blue;'>"+tieude+"</h4>", unsafe_allow_html=True)
+        placeholder1.markdown("<h4 style='text-align: center; color:orange;'>"+tieude+"</h4>", unsafe_allow_html=True)
 
         # B1: lay vai thong tin ngan tu url trong do co list cac ban ghi phu de
         transcript_en = YouTubeTranscriptApi.get_transcript(videoID)
