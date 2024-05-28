@@ -409,7 +409,7 @@ def Lap_html_video(transcript_en, videoID):
 #st.title('Speak Youtube Subtitles')
 st.markdown("<h1 style='text-align: center; color: green;'>Speak Youtube Subtitles</h1>", unsafe_allow_html=True)
 link_vidu = "https://www.youtube.com/embed/5MgBikgcWnY?enablejsapi=1"
-st.markdown("<h6 style='text-align: center; color: lightgrey;'>"+link_vidu+"</h6>", unsafe_allow_html=True)
+placeholder1 = st.markdown("<h6 style='text-align: center; color: lightgrey;'>"+link_vidu+"</h6>", unsafe_allow_html=True)
 
 #----------------------------------------------------------------------------------------------------------------
 
@@ -433,7 +433,9 @@ if url_vid_input :
         url_vid_input = "https://www.youtube.com/embed/" + videoID
         yt = YouTube(url_vid_input)
         tieude = yt.title
-        st.markdown("<h4 style='text-align: center; color: brown;'>"+tieude+"</h4>", unsafe_allow_html=True)
+        
+        #st.markdown("<h4 style='text-align: center; color: brown;'>"+tieude+"</h4>", unsafe_allow_html=True)
+        placeholder1.markdown("<h4 style='text-align: center; color: brown;'>"+tieude+"</h4>", unsafe_allow_html=True)
 
         # B1: lay vai thong tin ngan tu url trong do co list cac ban ghi phu de
         transcript_en = YouTubeTranscriptApi.get_transcript(videoID)
