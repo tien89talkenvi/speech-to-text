@@ -8,6 +8,8 @@ import streamlit as st
 import streamlit.components.v1 as components 
 from pytube import YouTube, extract
 import time
+from streamlit_input_box import input_box
+
 
 
 st.set_page_config(page_title="Speak Youtube Subtitles", layout="wide")
@@ -410,15 +412,28 @@ st.markdown("<h1 style='text-align: center; color: grey;'>Speak Youtube Subtitle
 #----------------------------------------------------------------------------------------------------------------
 link_vidu = "https://www.youtube.com/embed/5MgBikgcWnY?enablejsapi=1"
 
-url_vid_input = st.text_input("<h2 style='text-align: center; font-size: 2pt;'>'+link_vidu+'</h2>",link_vidu, label_visibility="hidden", key='IP1')
+state=st.session_state
+if 'texts' not in state:
+    state.texts = ""
+    
+url_vid_input = input_box(min_lines=1,max_lines=10,just_once=True)
+#st.text(url_vid_input)
 
-if st.checkbox('Accept') and url_vid_input:
+#url_vid_input = st.text_input("<h2 style='text-align: center; font-size: 2pt;'>'+link_vidu+'</h2>",link_vidu, label_visibility="hidden", key='IP1')
+
+if url_vid_input :
+    #st.text(text)
     try:
         t1=time.time()
         # B0: Chuyen doi cac URL noi chung sang URL YOUTUBE "https://www.youtube.com/embed/" + VIDEO-ID
         videoID = extract.video_id(url_vid_input)
+        
         # url_vid_input dat lai
         url_vid_input = "https://www.youtube.com/embed/" + videoID
+        yt = YouTube(url_vid_input)
+        tieude = yt.title
+        st.markdown("<h4 style='text-align: center; color: brown;'>"+tieude+"</h4>", unsafe_allow_html=True)
+
         # B1: lay vai thong tin ngan tu url trong do co list cac ban ghi phu de
         transcript_en = YouTubeTranscriptApi.get_transcript(videoID)
 
