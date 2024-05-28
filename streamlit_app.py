@@ -88,15 +88,14 @@ def Lap_html_video(transcript_en, videoID):
         .youtube-marker-r:hover {
             cursor: pointer;}
         .youtube-marker-r-current {
-            font-weight: bold;
-            color : red;}
+            color: red;}
         .center {
             font-size: 13pt;
             display: flex;
             justify-content: center;
             align-items: center;}
         h2 { 
-            font-size: 24pt;
+            font-size: 20pt;
             text-align: center;
             color:green;}
         #elm_url_yt{
@@ -119,7 +118,6 @@ def Lap_html_video(transcript_en, videoID):
         #vnoi {
             height: 40px;
             width: 40px;
-            color: blue;
             border: 4;}
         '''
 
@@ -254,20 +252,23 @@ def Lap_html_video(transcript_en, videoID):
                         //var time = Math.round(data.info.currentTime * 1000) / 1000;
                         var time = Math.round(data.info.currentTime);//lam tron sec
 
-                        strBuffer = lay_strBuffer();
+                        const [strBuffer, strBuffer2] = lay_strBuffer();
+                        //dang cua strBuffer la {1.224:'Toi', 2.16:'Anh', 3.111: 'No'}
 
                         timeStart = time;
                         let text = strBuffer[timeStart];
+                        let ellay = strBuffer2[timeStart];
+
                         //Neu timeStart khac voi timeStartl luu va text khac trong  
                         if (timeStart !== timeStartl && text){
-                            console.log(timeStart, text);
+                            console.log(timeStart, ellay);
                             timeStartl = time; 
-                            subtitle.innerText = text; 
-
+                            subtitle.innerText = text;
+                            ellay.classList.add("youtube-marker-r-current");
                             //phat am----------------------------------------
                             Read_Sub(text);
-                
                         }//--------------------------------------------------
+
                         //Cu sau moi sec thi hien thi thoi gian
                         // currentTime is emitted very frequently (milliseconds), but we only care about whole second changes.
                         //var time = Math.floor(data.info.currentTime);
@@ -281,16 +282,21 @@ def Lap_html_video(transcript_en, videoID):
                 }
             });
         }
+                            //marker.dom.classList.add("youtube-marker-r-current");
+
         //---------Lay strBuffer phu de moi sec--------------------------
         function lay_strBuffer(){
-            strBuffer = {};
+            let strBuffer = {},
+                strBuffer2 = {};
             var elsd = document.getElementsByClassName("youtube-marker-r");
             Array.prototype.forEach.call(elsd, function(el,i) {
                 let start = Math.round(el.attributes[1].value);
                 let text = el.innerHTML;
                 strBuffer[start] = text;
+                strBuffer2[start] = el;
+
             });
-            return strBuffer;
+            return [strBuffer, strBuffer2];
         }
         //------------------------------------------------------
         function cong1(){
