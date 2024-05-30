@@ -148,8 +148,8 @@ def Lap_html_video(transcript_en, videoID):
         var lang_dich_ra;
         var voice_speak_dich;
         var rate =  Number(document.getElementById('vnoi').innerHTML).toFixed(1);   
-        var Read_Sub_Crack = 0;
-        var volume_value = 0;
+        var Read_Sub_Crack = 1;
+        var volume_value = 1;
         const readSubEl = document.getElementById('read_sub');
         
         //tao menu select_target_dialect lang dich ra tu dong dich 
@@ -365,14 +365,14 @@ def Lap_html_video(transcript_en, videoID):
         //-----------------------
         function Read_Sub_Volume(){
             Read_Sub_Crack = Read_Sub_Crack + 1;
-            if (Read_Sub_Crack % 2 === 1){
-                volume_value = 1;
-                document.getElementById("volume").style.color="green";
-                document.getElementById("read_sub").style.color="green";
-            }else{
+            if (Read_Sub_Crack % 2 === 0){
                 volume_value = 0;
                 document.getElementById("volume").style.color="red";
                 document.getElementById("read_sub").style.color="red";
+            }else{
+                volume_value = 1;
+                document.getElementById("volume").style.color="green";
+                document.getElementById("read_sub").style.color="green";
 
             }
         }
