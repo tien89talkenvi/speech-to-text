@@ -129,7 +129,7 @@ def Lap_html_video(transcript_en, videoID):
             width: 40px;
             border: 4;}
         #read_sub {
-            color:red;}    
+            color:green;}    
         #btn {
             color:green;}    
         '''
@@ -358,9 +358,6 @@ def Lap_html_video(transcript_en, videoID):
         }       
         //-----------------------
         function Read_Sub_Volume(){
-            if (Read_Sub_Crack === 0){
-                readSubEl.click();
-            }    
             Read_Sub_Crack = Read_Sub_Crack + 1;
             if (Read_Sub_Crack % 2 === 1){
                 volume_value = 1;
@@ -373,10 +370,10 @@ def Lap_html_video(transcript_en, videoID):
         }
         //--------------------------
         function Read_Sub(text){
-            //readSubEl.click();
+        
             rate = Number(document.getElementById('vnoi').innerHTML).toFixed(1);
             var msg     = new SpeechSynthesisUtterance();
-            msg.volume = volume_value;
+            msg.volume = 1; //volume_value;
             msg.rate = rate; // 0 to 1, does not seem to work
             msg.lang = voice_speak_dich;
             msg.text = text;
@@ -408,7 +405,7 @@ def Lap_html_video(transcript_en, videoID):
                     </div><br>
 
                     <div class="rateread">
-                        <button id="read_sub" onclick="Read_Sub_Volume()">Speak</button>&emsp; &emsp; 
+                        <button id="read_sub" onclick="Read_Sub()">Speak</button>&emsp; &emsp; 
                         <button id="trudi" onclick="tru1()">-</button>&emsp; &emsp; 
                         <button id="vnoi">1.2</button>&emsp; &emsp; 
                         <button id="congthem" onclick="cong1()">+</button>&emsp;&emsp;
