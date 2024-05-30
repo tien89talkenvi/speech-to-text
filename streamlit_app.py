@@ -144,7 +144,8 @@ def Lap_html_video(transcript_en, videoID):
         var rate =  Number(document.getElementById('vnoi').innerHTML).toFixed(1);   
         var Read_Sub_Crack = 0;
         var volume_value = 0;
-
+        const readSubEl = document.getElementById('read_sub');
+        
         //tao menu select_target_dialect lang dich ra tu dong dich 
         let l_target_language = ['Danish', 'English', 'French', 'German', 'Italian', 'Japanese', 'Korean', 'Mexico', 'Nederlands', 'Rusian', 'Taiwan', 'Thai', 'Vietnamese']; 
         let l_target_voices = ['da-DK', 'en-US', 'fr-FR', 'de-DE', 'it-IT', 'ja-JP', 'ko-KR', 'es-MX', 'nl-NL', 'ru-RU', 'zh-TW', 'th-TH', 'vi-VN']; 
@@ -276,7 +277,7 @@ def Lap_html_video(transcript_en, videoID):
 
                         //Neu timeStart khac voi timeStartl luu va text khac trong  
                         if (timeStart !== timeStartl && text){
-                            console.log(timeStart, ellay);
+                            //console.log(timeStart, ellay);
                             timeStartl = time; 
                             subtitle.innerText = text;
                             ellay.classList.add("youtube-marker-r-current");
@@ -329,6 +330,7 @@ def Lap_html_video(transcript_en, videoID):
         }
         //------Moi lan click thi hien thi hoac an di subtitles-------
         btn_elm.onclick = function(){
+        
             k_sub = k_sub + 1;
             if (k_sub % 2 === 1){
 
@@ -356,6 +358,9 @@ def Lap_html_video(transcript_en, videoID):
         }       
         //-----------------------
         function Read_Sub_Volume(){
+            if (Read_Sub_Crack === 0){
+                readSubEl.click();
+            }    
             Read_Sub_Crack = Read_Sub_Crack + 1;
             if (Read_Sub_Crack % 2 === 1){
                 volume_value = 1;
@@ -368,6 +373,7 @@ def Lap_html_video(transcript_en, videoID):
         }
         //--------------------------
         function Read_Sub(text){
+            //readSubEl.click();
             rate = Number(document.getElementById('vnoi').innerHTML).toFixed(1);
             var msg     = new SpeechSynthesisUtterance();
             msg.volume = volume_value;
