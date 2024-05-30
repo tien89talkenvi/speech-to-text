@@ -133,8 +133,8 @@ def Lap_html_video(transcript_en, videoID):
         #btn {
             color:green;}
         #volume {
-            height: 30px;
-            width: 30px;
+            height: 40px;
+            width: 40px;
             text-align: center;
             border-radius: 50%;
             border: none;} 
