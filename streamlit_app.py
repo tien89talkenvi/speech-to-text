@@ -124,7 +124,7 @@ def Lap_html_video(transcript_en, videoID):
             border-radius: 50%;
             border: none;}
         #vnoi {
-            color:green;
+            color:blue;
             height: 40px;
             width: 40px;
             border: 4;}
@@ -135,7 +135,7 @@ def Lap_html_video(transcript_en, videoID):
         #volume {
             height: 30px;
             width: 30px;
-            justify-content: center
+            text-align: center;
             border-radius: 50%;
             border: none;} 
         
@@ -340,6 +340,7 @@ def Lap_html_video(transcript_en, videoID):
         
             k_sub = k_sub + 1;
             if (k_sub % 2 === 1){
+                document.getElementById("btn").style.color="brown";
 
                 var el = document.querySelectorAll(".youtube-marker-l");
                 for ( var i = 0; i < el.length; i ++ ) {
@@ -351,6 +352,7 @@ def Lap_html_video(transcript_en, videoID):
                 }
 
             }else{
+                document.getElementById("btn").style.color="green";
 
                 var el = document.querySelectorAll(".youtube-marker-l");
                 for ( var i = 0; i < el.length; i ++ ) {
