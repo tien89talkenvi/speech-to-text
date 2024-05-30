@@ -13,7 +13,7 @@ from streamlit_input_box import input_box
 
 
 st.set_page_config(page_title="Speak Youtube Subtitles", layout="wide")
-st.markdown(" <style> div[class^='block-container'] { padding-top: 0rem;} ", unsafe_allow_html=True)
+st.markdown(" <style> div[class^='block-container'] { padding-top: 0.5rem;} ", unsafe_allow_html=True)
 
       
 
@@ -412,7 +412,7 @@ def Lap_html_video(transcript_en, videoID):
 
 #---Bat Dau Main ------------------------------------------------------------------------------------------------
 #st.title('Speak Youtube Subtitles')
-st.markdown("<h1 style='text-align: center; color: green;'>Listen Youtube Subtitles</h1>", unsafe_allow_html=True)
+placeholder0 = st.markdown("<h1 style='text-align: center; color: green;'>Listen Youtube Subtitles</h1>", unsafe_allow_html=True)
 link_vidu = "https://www.youtube.com/embed/5MgBikgcWnY?enablejsapi=1"
 placeholder1 = st.markdown("<h6 style='text-align: center; color: lightgrey;'>"+link_vidu+"</h6>", unsafe_allow_html=True)
 
@@ -438,7 +438,7 @@ if url_vid_input :
         url_vid_input = "https://www.youtube.com/embed/" + videoID
         yt = YouTube(url_vid_input)
         tieude = yt.title
-        
+        placeholder0.markdown('&nbsp;')
         #st.markdown("<h4 style='text-align: center; color: brown;'>"+tieude+"</h4>", unsafe_allow_html=True)
         placeholder1.markdown("<h4 style='text-align: center; color:orange;'>"+tieude+"</h4>", unsafe_allow_html=True)
 
