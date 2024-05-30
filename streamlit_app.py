@@ -13,7 +13,7 @@ from streamlit_input_box import input_box
 
 
 st.set_page_config(page_title="Speak Youtube Subtitles", layout="wide")
-st.markdown(" <style> div[class^='block-container'] { padding-top: 0.5rem;} ", unsafe_allow_html=True)
+st.markdown(" <style> div[class^='block-container'] { padding-top: 0.2rem;} ", unsafe_allow_html=True)
 
       
 
@@ -98,10 +98,12 @@ def Lap_html_video(transcript_en, videoID):
             display: flex;
             justify-content: center;
             align-items: center;}
-        h2 { 
-            font-size: 20pt;
+
+        h2 {
+            font-size:20pt;
             text-align: center;
             color:green;}
+
         #elm_url_yt{
             font-size: 0pt;}
         .rateread {
@@ -126,16 +128,22 @@ def Lap_html_video(transcript_en, videoID):
             height: 40px;
             width: 40px;
             border: 4;}
+        #read_sub {
+            color:red;}    
+        #btn {
+            color:green;}    
         '''
 
     js1='''
         //bien global
         var strBuffer = {};
         var btn_elm = document.getElementById('btn');
-        var k=0;
+        var k_sub = 0;
         var lang_dich_ra;
         var voice_speak_dich;
         var rate =  Number(document.getElementById('vnoi').innerHTML).toFixed(1);   
+        var Read_Sub_Crack = 0;
+        var volume_value = 0;
 
         //tao menu select_target_dialect lang dich ra tu dong dich 
         let l_target_language = ['Danish', 'English', 'French', 'German', 'Italian', 'Japanese', 'Korean', 'Mexico', 'Nederlands', 'Rusian', 'Taiwan', 'Thai', 'Vietnamese']; 
@@ -321,9 +329,9 @@ def Lap_html_video(transcript_en, videoID):
         }
         //------Moi lan click thi hien thi hoac an di subtitles-------
         btn_elm.onclick = function(){
-            k=k+1;
-            //alert(k);
-            if (k % 2 === 1){
+            k_sub = k_sub + 1;
+            if (k_sub % 2 === 1){
+
                 var el = document.querySelectorAll(".youtube-marker-l");
                 for ( var i = 0; i < el.length; i ++ ) {
                     el[i].style.fontSize = "14pt";
@@ -332,7 +340,9 @@ def Lap_html_video(transcript_en, videoID):
                 for ( var i = 0; i < el.length; i ++ ) {
                     el[i].style.fontSize = "14pt";
                 }
-            } else {   
+
+            }else{
+
                 var el = document.querySelectorAll(".youtube-marker-l");
                 for ( var i = 0; i < el.length; i ++ ) {
                     el[i].style.fontSize = "0pt";
@@ -341,13 +351,26 @@ def Lap_html_video(transcript_en, videoID):
                 for ( var i = 0; i < el.length; i ++ ) {
                     el[i].style.fontSize = "0pt";
                 }
+
+            }
+        }       
+        //-----------------------
+        function Read_Sub_Volume(){
+            Read_Sub_Crack = Read_Sub_Crack + 1;
+            if (Read_Sub_Crack % 2 === 1){
+                volume_value = 1;
+                document.getElementById("read_sub").style.color="green";
+            }else{
+                volume_value = 0;
+                document.getElementById("read_sub").style.color="red";
+
             }
         }
         //--------------------------
         function Read_Sub(text){
             rate = Number(document.getElementById('vnoi').innerHTML).toFixed(1);
             var msg     = new SpeechSynthesisUtterance();
-            msg.volume = 1;
+            msg.volume = volume_value;
             msg.rate = rate; // 0 to 1, does not seem to work
             msg.lang = voice_speak_dich;
             msg.text = text;
@@ -379,7 +402,7 @@ def Lap_html_video(transcript_en, videoID):
                     </div><br>
 
                     <div class="rateread">
-                        <button id="read_sub" onclick="Read_Sub()">Speak</button>&emsp; &emsp; 
+                        <button id="read_sub" onclick="Read_Sub_Volume()">Speak</button>&emsp; &emsp; 
                         <button id="trudi" onclick="tru1()">-</button>&emsp; &emsp; 
                         <button id="vnoi">1.2</button>&emsp; &emsp; 
                         <button id="congthem" onclick="cong1()">+</button>&emsp;&emsp;
