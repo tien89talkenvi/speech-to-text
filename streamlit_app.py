@@ -135,6 +135,7 @@ def Lap_html_video(transcript_en, videoID):
         #volume {
             height: 30px;
             width: 30px;
+            justify-content: center
             border-radius: 50%;
             border: none;} 
         
