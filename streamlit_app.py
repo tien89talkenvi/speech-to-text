@@ -298,7 +298,7 @@ def Lap_html_video(transcript_en, videoID):
                         if (time !== lastTimeUpdate) {
                             lastTimeUpdate = time;
                             // It's now up to you to format the time. tinh ra phan tram thoi gian da chay youtub
-                            document.getElementById("time").innerHTML = '(' + Math.round(100*time/player.getDuration()) +' %) &nbsp;';
+                            //document.getElementById("time").innerHTML = '(' + Math.round(100*time/player.getDuration()) +' %) &nbsp;';
                         }  
                     }
                 }
