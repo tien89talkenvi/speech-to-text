@@ -131,7 +131,13 @@ def Lap_html_video(transcript_en, videoID):
         #read_sub {
             color:green;}    
         #btn {
-            color:green;}    
+            color:green;}
+        #volume {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            border: none;} 
+        
         '''
 
     js1='''
@@ -361,9 +367,11 @@ def Lap_html_video(transcript_en, videoID):
             Read_Sub_Crack = Read_Sub_Crack + 1;
             if (Read_Sub_Crack % 2 === 1){
                 volume_value = 1;
+                document.getElementById("volume").style.color="green";
                 document.getElementById("read_sub").style.color="green";
             }else{
                 volume_value = 0;
+                document.getElementById("volume").style.color="red";
                 document.getElementById("read_sub").style.color="red";
 
             }
@@ -373,8 +381,8 @@ def Lap_html_video(transcript_en, videoID):
         
             rate = Number(document.getElementById('vnoi').innerHTML).toFixed(1);
             var msg     = new SpeechSynthesisUtterance();
-            msg.volume = 1; //volume_value;
-            msg.rate = rate; // 0 to 1, does not seem to work
+            msg.volume = volume_value;
+            msg.rate = rate; 
             msg.lang = voice_speak_dich;
             msg.text = text;
             speechSynthesis.speak(msg);
@@ -401,7 +409,8 @@ def Lap_html_video(transcript_en, videoID):
 
                     <hr>
                     <div class="center">
-                        Voice &nbsp; <select id="select_target_language" onchange ="active_target_lang()"></select>&emsp;<span id="time"></span>
+                        Voice &nbsp; <select id="select_target_language" onchange ="active_target_lang()"></select>&emsp;
+                        <button id="volume" onclick="Read_Sub_Volume()">Vol</button>
                     </div><br>
 
                     <div class="rateread">
