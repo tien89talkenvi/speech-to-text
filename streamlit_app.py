@@ -391,9 +391,6 @@ def Lap_html_video(transcript_en, videoID):
             speechSynthesis.speak(msg);
         
         }
-        function goHome(){
-              history.go(-2);
-        }
         //--------------------------------------------------------------
         '''
     components.html(f"""
@@ -429,7 +426,6 @@ def Lap_html_video(transcript_en, videoID):
 
                     <hr>
                     
-<button onclick="goHome()">Go Home</button>
                     <h2 id="subtitle"></h2>
 
 
