@@ -4,4 +4,3 @@ urllib3==2.2.1
 pytube==15.0.0
 googletrans==4.0.0rc1
 streamlit-input-box==0.0.3
-browser==66.0.3
