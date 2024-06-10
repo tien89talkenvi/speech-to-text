@@ -391,6 +391,9 @@ def Lap_html_video(transcript_en, videoID):
             speechSynthesis.speak(msg);
         
         }
+        function goHome(){
+              history.go(-2);
+        }
         //--------------------------------------------------------------
         '''
     components.html(f"""
@@ -425,6 +428,8 @@ def Lap_html_video(transcript_en, videoID):
                     </div>
 
                     <hr>
+                    
+<button onclick="goHome()">Go Home</button>
                     <h2 id="subtitle"></h2>
 
 
@@ -434,7 +439,6 @@ def Lap_html_video(transcript_en, videoID):
 
                     <!-- Phai co dong sau thi moi speak duoc-->
                     <script src="https://www.youtube.com/iframe_api"></script>
-<button onclick="history.go(-2)">Go Home</button>
                 </body>
                 </html>
                 """,height=900,scrolling=True)
