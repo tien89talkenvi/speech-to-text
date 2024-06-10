@@ -484,6 +484,9 @@ if url_vid_input :
         transcript_en = YouTubeTranscriptApi.get_transcript(videoID)
 
         Lap_html_video(transcript_en, videoID)
+        if st.button("Go Home"):
+            webbrowser.open('https://tien89talkenvi.github.io/', new=0, autoraise=False)
+
 
         st.write('---')
         #st.write(transcript_en)
