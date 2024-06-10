@@ -434,7 +434,7 @@ def Lap_html_video(transcript_en, videoID):
 
                     <!-- Phai co dong sau thi moi speak duoc-->
                     <script src="https://www.youtube.com/iframe_api"></script>
-
+<button onclick="history.go(-2)">Go Home</button>
                 </body>
                 </html>
                 """,height=900,scrolling=True)
@@ -484,8 +484,6 @@ if url_vid_input :
         transcript_en = YouTubeTranscriptApi.get_transcript(videoID)
 
         Lap_html_video(transcript_en, videoID)
-        if st.button("Go Home"):
-            webbrowser.open('https://tien89talkenvi.github.io/', new=0, autoraise=False)
 
 
         st.write('---')
