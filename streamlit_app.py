@@ -314,7 +314,7 @@ def Lap_html_video(transcript_en, videoID):
             var elsd = document.getElementsByClassName("youtube-marker-r");
             Array.prototype.forEach.call(elsd, function(el,i) {
                 let start = Math.round(el.attributes[1].value);
-                let text = el.innerHTML;
+                let text = el.innerText;
                 strBuffer[start] = text;
                 strBuffer2[start] = el;
 
